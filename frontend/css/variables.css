@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Silkscreen:wght@400;700&display=swap');
+
+/* ── Light Theme — Full Pastel Palette ─────────────── */
+:root {
+  /* Backgrounds */
+  --bg-primary      : #F8F7FF;
+  --bg-secondary    : #EEF0FB;
+  --bg-card         : #FFFFFF;
+
+  /* Pastel Accent Colors */
+  --accent-primary  : #7C6FCD;
+  --accent-secondary: #A89EE0;
+  --accent-peach    : #FFB997;
+  --accent-mint     : #7ED8C0;
+  --accent-sky      : #7EC8E3;
+  --accent-rose     : #F4A7B9;
+  --accent-amber    : #FFD166;
+  --accent-sage     : #A8C5A0;
+  --accent-coral    : #FF8C8C;
+  --accent-blue     : #89C4E1;
+  --accent-success  : #6DBF8E;
+  --accent-warning  : #F0B86E;
+  --accent-danger   : #E88080;
+
+  /* Pastel Card Backgrounds */
+  --card-peach      : #FFF0E8;
+  --card-mint       : #E8F8F4;
+  --card-sky        : #E8F4FB;
+  --card-rose       : #FDE8EE;
+  --card-amber      : #FFF8E1;
+  --card-sage       : #EDF5EC;
+  --card-lavender   : #F0EDFF;
+  --card-coral      : #FFE8E8;
+
+  /* Text */
+  --text-primary    : #2D2642;
+  --text-secondary  : #6E6690;
+  --text-muted      : #A89EBF;
+
+  /* Borders & Shadows */
+  --border-color    : #E0D9F5;
+  --shadow-sm       : 0 1px 4px rgba(124,111,205,0.08);
+  --shadow-md       : 0 4px 16px rgba(124,111,205,0.12);
+  --shadow-lg       : 0 8px 32px rgba(124,111,205,0.16);
+
+  /* Typography */
+  --font-main  : 'DM Sans', sans-serif;
+  --font-mono  : 'IBM Plex Mono', monospace;
+  --font-retro : 'Silkscreen', monospace;
+
+  /* Spacing */
+  --radius-sm  : 8px;
+  --radius-md  : 14px;
+  --radius-lg  : 20px;
+
+  /* Transitions */
+  --transition : all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Dark Theme — Deep Charcoal + Rich Accents ─────── */
+[data-theme="dark"] {
+  /* Charcoal Backgrounds */
+  --bg-primary      : #13121A;
+  --bg-secondary    : #1C1B26;
+  --bg-card         : #222133;
+
+  /* Rich Dark Accents */
+  --accent-primary  : #9D8FE8;
+  --accent-secondary: #B8ADEF;
+  --accent-peach    : #E8956D;
+  --accent-mint     : #5EC4AE;
+  --accent-sky      : #5AAECF;
+  --accent-rose     : #D4789A;
+  --accent-amber    : #E8B84B;
+  --accent-sage     : #7AAD72;
+  --accent-coral    : #D46060;
+  --accent-blue     : #6AAED4;
+  --accent-success  : #5DBF8A;
+  --accent-warning  : #E8B06A;
+  --accent-danger   : #E07878;
+
+  /* Dark Card Tints */
+  --card-peach      : #2A1F1A;
+  --card-mint       : #1A2A26;
+  --card-sky        : #1A2530;
+  --card-rose       : #2A1A20;
+  --card-amber      : #2A2410;
+  --card-sage       : #1A2A1A;
+  --card-lavender   : #1E1C2E;
+  --card-coral      : #2A1818;
+
+  /* Text */
+  --text-primary    : #EDE9FF;
+  --text-secondary  : #9D97C0;
+  --text-muted      : #5E5A7A;
+
+  /* Borders & Shadows */
+  --border-color    : #2E2C42;
+  --shadow-sm       : 0 1px 4px rgba(0,0,0,0.4);
+  --shadow-md       : 0 4px 16px rgba(0,0,0,0.5);
+  --shadow-lg       : 0 8px 32px rgba(0,0,0,0.6);
+}
+
+/* ── Background Color Themes ───────────────────────── */
+[data-bg="peach"]   { --bg-primary: #fee4cf; --bg-secondary: #FFD4B8; }
+[data-bg="mint"]    { --bg-primary: #bcfeeb; --bg-secondary: #B8EDD9; }
+[data-bg="sky"]     { --bg-primary: #b8dffa; --bg-secondary: #B8DFFF; }
+[data-bg="rose"]    { --bg-primary: #fcbed6; --bg-secondary: #FFB8D0; }
+[data-bg="amber"]   { --bg-primary: #faedc7; --bg-secondary: #FFE8A0; }
+[data-bg="sage"]    { --bg-primary: #cff3c2; --bg-secondary: #BEDDBA; }
+[data-bg="lavender"]{ --bg-primary: #e0d5ff; --bg-secondary: #D4C8FF; }
+[data-bg="coral"]   { --bg-primary: #fcea8b; --bg-secondary: #FFB8B8; }
+
+/* ── Dark mode background themes ──────────────────── */
+[data-theme="dark"][data-bg="peach"]   { --bg-primary: #201510; --bg-secondary: #2E1E15; }
+[data-theme="dark"][data-bg="mint"]    { --bg-primary: #102018; --bg-secondary: #152E22; }
+[data-theme="dark"][data-bg="sky"]     { --bg-primary: #101820; --bg-secondary: #15222E; }
+[data-theme="dark"][data-bg="rose"]    { --bg-primary: #201015; --bg-secondary: #2E1520; }
+[data-theme="dark"][data-bg="amber"]   { --bg-primary: #201A08; --bg-secondary: #2E2510; }
+[data-theme="dark"][data-bg="sage"]    { --bg-primary: #102010; --bg-secondary: #152E15; }
+[data-theme="dark"][data-bg="lavender"]{ --bg-primary: #13121A; --bg-secondary: #1C1B26; }
+[data-theme="dark"][data-bg="coral"]   { --bg-primary: #201010; --bg-secondary: #2E1515; }

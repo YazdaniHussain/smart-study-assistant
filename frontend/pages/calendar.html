@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudyMind — Calendar</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/dashboard.css"/>
+  <link rel="stylesheet" href="../css/calendar.css"/>
+</head>
+<body class="calendar-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo"><span>🎓</span> StudyMind</div>
+    <div class="nav-right">
+      <div class="theme-picker-wrap">
+        <button class="theme-picker-btn" id="themePickerBtn"></button>
+        <div class="theme-picker-panel" id="themePickerPanel">
+          <h4>Background Color</h4>
+          <div class="color-swatches">
+            <div class="color-swatch swatch-lavender" data-bg="lavender"></div>
+            <div class="color-swatch swatch-peach"    data-bg="peach"></div>
+            <div class="color-swatch swatch-mint"     data-bg="mint"></div>
+            <div class="color-swatch swatch-sky"      data-bg="sky"></div>
+            <div class="color-swatch swatch-rose"     data-bg="rose"></div>
+            <div class="color-swatch swatch-amber"    data-bg="amber"></div>
+            <div class="color-swatch swatch-sage"     data-bg="sage"></div>
+            <div class="color-swatch swatch-coral"    data-bg="coral"></div>
+          </div>
+        </div>
+      </div>
+      <a href="./dashboard.html" class="btn btn-ghost" style="font-size:0.85rem;">← Dashboard</a>
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <div class="nav-user">
+        <div class="nav-avatar" id="navAvatar">S</div>
+        <span id="navUsername">Student</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="calendar-container">
+    <div class="page-header">
+      <h1>🗓️ Calendar</h1>
+      <p>Plan your study schedule and track important dates</p>
+    </div>
+
+    <div class="calendar-layout">
+
+      <!-- Calendar -->
+      <div class="calendar-card">
+        <div class="calendar-header">
+          <button class="cal-nav-btn" id="prevMonth">‹</button>
+          <h2 id="monthYear">May 2026</h2>
+          <button class="cal-nav-btn" id="nextMonth">›</button>
+        </div>
+        <div class="day-labels">
+          <div class="day-label">Sun</div>
+          <div class="day-label">Mon</div>
+          <div class="day-label">Tue</div>
+          <div class="day-label">Wed</div>
+          <div class="day-label">Thu</div>
+          <div class="day-label">Fri</div>
+          <div class="day-label">Sat</div>
+        </div>
+        <div class="days-grid" id="daysGrid"></div>
+      </div>
+
+      <!-- Events Panel -->
+      <div class="events-panel">
+        <div class="events-header">
+          <h3 id="selectedDateLabel">Select a date</h3>
+          <p id="eventCount">Click any date to view or add events</p>
+        </div>
+
+        <div class="add-event-form" id="addEventForm" style="display:none;">
+          <input type="text" id="eventTitle" class="input-field"
+                 placeholder="Event title..." />
+          <input type="text" id="eventDesc" class="input-field"
+                 placeholder="Description (optional)" />
+          <button class="add-event-btn" id="addEventBtn">+ Add Event</button>
+        </div>
+
+        <div class="events-list" id="eventsList">
+          <div class="no-events">📅 Select a date to see events</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/calendar.js"></script>
+</body>
+</html> 

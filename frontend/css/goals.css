@@ -1,0 +1,309 @@
+@import url('./variables.css');
+
+.goals-body {
+  min-height : 100vh;
+  background : var(--bg-primary);
+  font-family: var(--font-main);
+}
+
+.goals-container {
+  max-width: 900px;
+  margin   : 0 auto;
+  padding  : 32px 24px;
+}
+
+/* ── Goals Layout ──────────────────────────────────── */
+.goals-layout {
+  display              : grid;
+  grid-template-columns: 340px 1fr;
+  gap                  : 24px;
+  align-items          : start;
+}
+
+/* ── Add Goal Card ─────────────────────────────────── */
+.add-goal-card {
+  background   : var(--bg-card);
+  border-radius: var(--radius-lg);
+  border       : 1px solid var(--border-color);
+  box-shadow   : var(--shadow-sm);
+  padding      : 24px;
+  position     : sticky;
+  top          : 90px;
+}
+
+.add-goal-card h3 {
+  font-size    : 0.95rem;
+  font-weight  : 700;
+  color        : var(--text-primary);
+  margin-bottom: 20px;
+  display      : flex;
+  align-items  : center;
+  gap          : 8px;
+}
+
+.add-goal-form {
+  display       : flex;
+  flex-direction: column;
+  gap           : 12px;
+}
+
+.add-goal-btn {
+  padding      : 12px;
+  background   : var(--accent-rose);
+  color        : white;
+  border       : none;
+  border-radius: var(--radius-sm);
+  font-family  : var(--font-main);
+  font-size    : 0.9rem;
+  font-weight  : 600;
+  cursor       : pointer;
+  transition   : var(--transition);
+  margin-top   : 4px;
+}
+
+.add-goal-btn:hover {
+  opacity  : 0.9;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Goals List ────────────────────────────────────── */
+.goals-list {
+  display       : flex;
+  flex-direction: column;
+  gap           : 16px;
+}
+
+/* ── Type Filter ───────────────────────────────────── */
+.type-filter {
+  display      : flex;
+  gap          : 8px;
+  margin-bottom: 20px;
+  flex-wrap    : wrap;
+}
+
+.type-btn {
+  padding      : 7px 18px;
+  border-radius: 20px;
+  border       : 1.5px solid var(--border-color);
+  background   : var(--bg-card);
+  font-family  : var(--font-main);
+  font-size    : 0.82rem;
+  font-weight  : 500;
+  color        : var(--text-muted);
+  cursor       : pointer;
+  transition   : var(--transition);
+}
+
+.type-btn.active {
+  background  : var(--accent-rose);
+  color       : white;
+  border-color: var(--accent-rose);
+}
+
+/* ── Goal Card ─────────────────────────────────────── */
+.goal-card {
+  background   : var(--bg-card);
+  border-radius: var(--radius-md);
+  border       : 1px solid var(--border-color);
+  padding      : 20px 24px;
+  box-shadow   : var(--shadow-sm);
+  transition   : var(--transition);
+  animation    : fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.goal-card:hover { box-shadow: var(--shadow-md); }
+.goal-card.completed { border-color: var(--accent-success); }
+
+/* ── Goal Header ───────────────────────────────────── */
+.goal-header {
+  display        : flex;
+  align-items    : flex-start;
+  justify-content: space-between;
+  margin-bottom  : 14px;
+}
+
+.goal-title {
+  font-size  : 1rem;
+  font-weight: 600;
+  color      : var(--text-primary);
+}
+
+.goal-type-badge {
+  padding      : 3px 12px;
+  border-radius: 20px;
+  font-size    : 0.72rem;
+  font-weight  : 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.type-daily   { background: var(--card-rose);    color: var(--accent-rose); }
+.type-weekly  { background: var(--card-sky);     color: var(--accent-sky); }
+.type-monthly { background: var(--card-lavender);color: var(--accent-primary); }
+
+/* ── Progress Bar ──────────────────────────────────── */
+.goal-progress-wrap {
+  margin-bottom: 12px;
+}
+
+.goal-progress-info {
+  display        : flex;
+  justify-content: space-between;
+  align-items    : center;
+  margin-bottom  : 8px;
+}
+
+.goal-progress-text {
+  font-family: var(--font-mono);
+  font-size  : 0.82rem;
+  color      : var(--text-muted);
+}
+
+.goal-percent {
+  font-family: var(--font-mono);
+  font-size  : 0.85rem;
+  font-weight: 600;
+  color      : var(--accent-rose);
+}
+
+.progress-bar-bg {
+  width        : 100%;
+  height       : 10px;
+  background   : var(--bg-secondary);
+  border-radius: 10px;
+  overflow     : hidden;
+}
+
+.progress-bar-fill {
+  height       : 100%;
+  border-radius: 10px;
+  background   : linear-gradient(90deg, var(--accent-rose), var(--accent-pink));
+  transition   : width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  position     : relative;
+}
+
+.goal-card.completed .progress-bar-fill {
+  background: linear-gradient(90deg, var(--accent-success), var(--accent-mint));
+}
+
+/* ── Goal Controls ─────────────────────────────────── */
+.goal-controls {
+  display    : flex;
+  align-items: center;
+  gap        : 10px;
+}
+
+.progress-input {
+  width        : 80px;
+  padding      : 7px 10px;
+  border-radius: var(--radius-sm);
+  border       : 1.5px solid var(--border-color);
+  background   : var(--bg-primary);
+  color        : var(--text-primary);
+  font-family  : var(--font-mono);
+  font-size    : 0.9rem;
+  text-align   : center;
+  outline      : none;
+  transition   : var(--transition);
+}
+
+.progress-input:focus {
+  border-color: var(--accent-rose);
+  box-shadow  : 0 0 0 3px rgba(244,167,185,0.15);
+}
+
+.update-btn {
+  padding      : 7px 16px;
+  background   : var(--card-rose);
+  color        : var(--accent-rose);
+  border       : 1.5px solid var(--accent-rose);
+  border-radius: var(--radius-sm);
+  font-family  : var(--font-main);
+  font-size    : 0.82rem;
+  font-weight  : 600;
+  cursor       : pointer;
+  transition   : var(--transition);
+}
+
+.update-btn:hover {
+  background: var(--accent-rose);
+  color     : white;
+}
+
+.delete-goal-btn {
+  margin-left    : auto;
+  width          : 30px;
+  height         : 30px;
+  border-radius  : 8px;
+  border         : 1px solid var(--border-color);
+  background     : transparent;
+  cursor         : pointer;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  font-size      : 0.85rem;
+  color          : var(--text-muted);
+  transition     : var(--transition);
+}
+
+.delete-goal-btn:hover { background: #FFE0E0; color: var(--accent-danger); }
+
+/* ── Completed Badge ───────────────────────────────── */
+.completed-badge {
+  display    : flex;
+  align-items: center;
+  gap        : 6px;
+  font-size  : 0.82rem;
+  font-weight: 600;
+  color      : var(--accent-success);
+}
+
+/* ── Empty State ───────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding   : 48px 24px;
+  color     : var(--text-muted);
+}
+
+.empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
+
+/* ── Stats Row ─────────────────────────────────────── */
+.goals-stats {
+  display              : grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap                  : 12px;
+  margin-bottom        : 20px;
+}
+
+.goal-stat {
+  background   : var(--bg-card);
+  border-radius: var(--radius-md);
+  border       : 1px solid var(--border-color);
+  padding      : 16px;
+  text-align   : center;
+}
+
+.goal-stat-value {
+  font-family: var(--font-mono);
+  font-size  : 1.4rem;
+  font-weight: 600;
+  color      : var(--text-primary);
+}
+
+.goal-stat-label {
+  font-size : 0.75rem;
+  color     : var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .goals-layout { grid-template-columns: 1fr; }
+  .add-goal-card { position: static; }
+} 

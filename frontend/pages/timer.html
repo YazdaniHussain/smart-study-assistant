@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyMind — Timer</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/timer.css" />
+</head>
+<body class="timer-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <span>🎓</span> StudyMind
+    </div>
+    <div class="nav-right">
+      <a href="./dashboard.html" class="btn btn-ghost" style="font-size:0.85rem;">← Dashboard</a>
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <div class="nav-user">
+        <div class="nav-avatar" id="navAvatar">S</div>
+        <span id="navUsername">Student</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="timer-container">
+
+    <!-- Mode Selector -->
+    <div class="mode-selector">
+      <button class="mode-btn active" data-mode="pomodoro">🍅 Pomodoro</button>
+      <button class="mode-btn" data-mode="short">☕ Short Break</button>
+      <button class="mode-btn" data-mode="long">🌿 Long Break</button>
+      <button class="mode-btn" data-mode="custom">⚙️ Custom</button>
+    </div>
+
+    <!-- Custom Duration -->
+    <div class="custom-duration" id="customDuration">
+      <h4>Set Custom Duration</h4>
+      <div class="duration-inputs">
+        <div class="duration-input-group">
+          <label>Study (min)</label>
+          <input type="number" id="customStudy" value="45" min="1" max="180" />
+        </div>
+        <div class="duration-input-group">
+          <label>Break (min)</label>
+          <input type="number" id="customBreak" value="10" min="1" max="60" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Timer Card -->
+    <div class="timer-card">
+      <div class="session-label" id="sessionLabel">FOCUS SESSION</div>
+
+      <!-- Circular Timer -->
+      <div class="timer-circle-wrap">
+        <svg class="timer-svg" viewBox="0 0 280 280">
+          <circle class="timer-track"    cx="140" cy="140" r="120" />
+          <circle class="timer-progress status-focus" id="timerProgress" cx="140" cy="140" r="120" />
+        </svg>
+        <div class="timer-display">
+          <div class="timer-time" id="timerDisplay">25:00</div>
+          <div class="timer-phase" id="timerPhase">Ready to focus</div>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="timer-controls">
+        <button class="ctrl-btn" id="resetBtn" title="Reset">↺</button>
+        <button class="ctrl-btn ctrl-btn-primary" id="startBtn" title="Start">▶</button>
+        <button class="ctrl-btn" id="skipBtn" title="Skip">⏭</button>
+      </div>
+    </div>
+
+    <!-- Session Info -->
+    <div class="session-info">
+      <div class="info-card">
+        <div class="info-value mono" id="infoSessions">0</div>
+        <div class="info-label">Sessions Done</div>
+      </div>
+      <div class="info-card">
+        <div class="info-value mono" id="infoTime">0m</div>
+        <div class="info-label">Time Studied</div>
+      </div>
+      <div class="info-card">
+        <div class="info-value mono" id="infoBreaks">0</div>
+        <div class="info-label">Breaks Taken</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/timer.js"></script>
+</body>
+</html> 

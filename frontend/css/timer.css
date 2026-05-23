@@ -1,0 +1,282 @@
+@import url('./variables.css');
+
+/* ── Timer Page ────────────────────────────────────── */
+.timer-body {
+  min-height : 100vh;
+  background : var(--bg-primary);
+  font-family: var(--font-main);
+}
+
+/* ── Timer Container ───────────────────────────────── */
+.timer-container {
+  max-width : 700px;
+  margin    : 0 auto;
+  padding   : 32px 24px;
+}
+
+/* ── Mode Selector ─────────────────────────────────── */
+.mode-selector {
+  display        : flex;
+  background     : var(--bg-card);
+  border         : 1px solid var(--border-color);
+  border-radius  : var(--radius-lg);
+  padding        : 6px;
+  gap            : 6px;
+  margin-bottom  : 28px;
+  box-shadow     : var(--shadow-sm);
+}
+
+.mode-btn {
+  flex           : 1;
+  padding        : 10px;
+  border         : none;
+  border-radius  : var(--radius-md);
+  background     : transparent;
+  font-family    : var(--font-main);
+  font-size      : 0.88rem;
+  font-weight    : 500;
+  color          : var(--text-muted);
+  cursor         : pointer;
+  transition     : var(--transition);
+}
+
+.mode-btn.active {
+  background : var(--accent-primary);
+  color      : white;
+  box-shadow : var(--shadow-sm);
+}
+
+/* ── Timer Card ────────────────────────────────────── */
+.timer-card {
+  background     : var(--bg-card);
+  border-radius  : var(--radius-lg);
+  border         : 1px solid var(--border-color);
+  box-shadow     : var(--shadow-lg);
+  padding        : 48px 40px;
+  text-align     : center;
+  margin-bottom  : 20px;
+  position       : relative;
+  overflow       : hidden;
+}
+
+.timer-card::before {
+  content       : '';
+  position      : absolute;
+  width         : 400px;
+  height        : 400px;
+  border-radius : 50%;
+  background    : radial-gradient(circle, rgba(124,111,205,0.06) 0%, transparent 70%);
+  top           : -150px;
+  right         : -100px;
+  pointer-events: none;
+}
+
+/* ── Session Label ─────────────────────────────────── */
+.session-label {
+  font-size     : 0.78rem;
+  font-weight   : 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color         : var(--accent-primary);
+  margin-bottom : 24px;
+}
+
+/* ── Circular Progress ─────────────────────────────── */
+.timer-circle-wrap {
+  position      : relative;
+  width         : 280px;
+  height        : 280px;
+  margin        : 0 auto 32px;
+}
+
+.timer-svg {
+  width    : 280px;
+  height   : 280px;
+  transform: rotate(-90deg);
+}
+
+.timer-track {
+  fill        : none;
+  stroke      : var(--border-color);
+  stroke-width: 8;
+}
+
+.timer-progress {
+  fill            : none;
+  stroke          : var(--accent-primary);
+  stroke-width    : 8;
+  stroke-linecap  : round;
+  stroke-dasharray: 754;
+  stroke-dashoffset: 0;
+  transition      : stroke-dashoffset 1s linear, stroke 0.5s ease;
+}
+
+.timer-display {
+  position       : absolute;
+  top            : 50%;
+  left           : 50%;
+  transform      : translate(-50%, -50%);
+  text-align     : center;
+}
+
+.timer-time {
+  font-family: var(--font-mono);
+  font-size  : 3.2rem;
+  font-weight: 600;
+  color      : var(--text-primary);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.timer-phase {
+  font-size  : 0.82rem;
+  color      : var(--text-muted);
+  margin-top : 8px;
+  font-weight: 500;
+}
+
+/* ── Controls ──────────────────────────────────────── */
+.timer-controls {
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  gap            : 16px;
+  margin-bottom  : 32px;
+}
+
+.ctrl-btn {
+  width          : 52px;
+  height         : 52px;
+  border-radius  : 50%;
+  border         : 1.5px solid var(--border-color);
+  background     : var(--bg-card);
+  font-size      : 1.2rem;
+  cursor         : pointer;
+  transition     : var(--transition);
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  box-shadow     : var(--shadow-sm);
+  color          : var(--text-secondary);
+}
+
+.ctrl-btn:hover {
+  transform : translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color     : var(--text-primary);
+}
+
+.ctrl-btn-primary {
+  width     : 70px;
+  height    : 70px;
+  background: var(--accent-primary);
+  border    : none;
+  color     : white;
+  font-size : 1.6rem;
+  box-shadow: 0 4px 20px rgba(124,111,205,0.4);
+}
+
+.ctrl-btn-primary:hover {
+  opacity   : 0.92;
+  transform : translateY(-2px);
+  box-shadow: 0 6px 24px rgba(124,111,205,0.5);
+}
+
+/* ── Session Info ──────────────────────────────────── */
+.session-info {
+  display              : grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap                  : 12px;
+  margin-bottom        : 20px;
+}
+
+.info-card {
+  background   : var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding      : 16px;
+  text-align   : center;
+  border       : 1px solid var(--border-color);
+}
+
+.info-value {
+  font-family: var(--font-mono);
+  font-size  : 1.3rem;
+  font-weight: 600;
+  color      : var(--text-primary);
+}
+
+.info-label {
+  font-size : 0.75rem;
+  color     : var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ── Custom Duration ───────────────────────────────── */
+.custom-duration {
+  background   : var(--bg-card);
+  border-radius: var(--radius-md);
+  border       : 1px solid var(--border-color);
+  padding      : 20px;
+  margin-bottom: 20px;
+  display      : none;
+}
+
+.custom-duration.visible { display: block; }
+
+.custom-duration h4 {
+  font-size    : 0.88rem;
+  color        : var(--text-secondary);
+  margin-bottom: 14px;
+  font-weight  : 600;
+}
+
+.duration-inputs {
+  display: flex;
+  gap    : 12px;
+}
+
+.duration-input-group {
+  flex          : 1;
+  display       : flex;
+  flex-direction: column;
+  gap           : 6px;
+}
+
+.duration-input-group label {
+  font-size : 0.78rem;
+  color     : var(--text-muted);
+  font-weight: 500;
+}
+
+.duration-input-group input {
+  width        : 100%;
+  padding      : 10px 12px;
+  border-radius: var(--radius-sm);
+  border       : 1.5px solid var(--border-color);
+  background   : var(--bg-primary);
+  color        : var(--text-primary);
+  font-family  : var(--font-mono);
+  font-size    : 1rem;
+  text-align   : center;
+  outline      : none;
+  transition   : var(--transition);
+}
+
+.duration-input-group input:focus {
+  border-color: var(--accent-primary);
+  box-shadow  : 0 0 0 3px rgba(124,111,205,0.1);
+}
+
+/* ── Status Colors ─────────────────────────────────── */
+.status-focus  { stroke: var(--accent-primary) !important; }
+.status-break  { stroke: var(--accent-success) !important; }
+.status-long   { stroke: var(--accent-blue) !important; }
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 600px) {
+  .timer-time          { font-size: 2.4rem; }
+  .timer-circle-wrap   { width: 220px; height: 220px; }
+  .timer-svg           { width: 220px; height: 220px; }
+  .timer-card          { padding: 32px 20px; }
+  .session-info        { grid-template-columns: repeat(3, 1fr); }
+} 

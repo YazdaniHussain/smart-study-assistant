@@ -1,0 +1,222 @@
+/* ── Import Variables ──────────────────────────────── */
+@import url('./variables.css');
+
+/* ── Reset & Base ──────────────────────────────────── */
+*, *::before, *::after {
+  margin     : 0;
+  padding    : 0;
+  box-sizing : border-box;
+}
+
+html {
+  font-size  : 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family     : var(--font-main);
+  background-color: var(--bg-primary);
+  color           : var(--text-primary);
+  transition      : var(--transition);
+  min-height      : 100vh;
+  line-height     : 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ── Typography ────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-weight : 600;
+  line-height : 1.3;
+  color       : var(--text-primary);
+}
+
+p  { color: var(--text-secondary); }
+a  { text-decoration: none; color: var(--accent-primary); }
+a:hover { opacity: 0.8; }
+
+/* ── Utility Classes ───────────────────────────────── */
+.mono   { font-family: var(--font-mono); }
+.retro  { font-family: var(--font-retro); }
+.muted  { color: var(--text-muted); }
+
+.card {
+  background   : var(--bg-card);
+  border-radius: var(--radius-md);
+  border       : 1px solid var(--border-color);
+  box-shadow   : var(--shadow-sm);
+  transition   : var(--transition);
+}
+
+.card:hover { box-shadow: var(--shadow-md); }
+
+.btn {
+  display        : inline-flex;
+  align-items    : center;
+  justify-content: center;
+  gap            : 8px;
+  padding        : 10px 20px;
+  border-radius  : var(--radius-sm);
+  border         : none;
+  font-family    : var(--font-main);
+  font-size      : 0.9rem;
+  font-weight    : 500;
+  cursor         : pointer;
+  transition     : var(--transition);
+}
+
+.btn-primary {
+  background: var(--accent-primary);
+  color     : #fff;
+}
+
+.btn-primary:hover {
+  opacity  : 0.9;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-ghost {
+  background: transparent;
+  color     : var(--text-secondary);
+  border    : 1px solid var(--border-color);
+}
+
+.btn-ghost:hover {
+  background: var(--bg-secondary);
+  color     : var(--text-primary);
+}
+
+/* ── Theme Toggle Button ───────────────────────────── */
+.theme-toggle {
+  width          : 40px;
+  height         : 40px;
+  border-radius  : 50%;
+  border         : 1px solid var(--border-color);
+  background     : var(--bg-card);
+  cursor         : pointer;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  font-size      : 1.1rem;
+  transition     : var(--transition);
+  box-shadow     : var(--shadow-sm);
+}
+
+.theme-toggle:hover {
+  background: var(--bg-secondary);
+  transform : rotate(20deg);
+}
+
+/* ── Input Fields ──────────────────────────────────── */
+.input-field {
+  width        : 100%;
+  padding      : 12px 16px;
+  border-radius: var(--radius-sm);
+  border       : 1.5px solid var(--border-color);
+  background   : var(--bg-primary);
+  color        : var(--text-primary);
+  font-family  : var(--font-main);
+  font-size    : 0.95rem;
+  transition   : var(--transition);
+  outline      : none;
+}
+
+.input-field:focus {
+  border-color: var(--accent-primary);
+  box-shadow  : 0 0 0 3px rgba(59,130,246,0.1);
+}
+
+.input-field::placeholder { color: var(--text-muted); } 
+
+
+/* ── Theme Picker ──────────────────────────────────── */
+.theme-picker-wrap {
+  position  : relative;
+  display   : inline-block;
+}
+
+.theme-picker-btn {
+  width          : 40px;
+  height         : 40px;
+  border-radius  : 50%;
+  border         : 1px solid var(--border-color);
+  background     : linear-gradient(135deg, #FFB997, #7ED8C0, #7C6FCD, #F4A7B9);
+  cursor         : pointer;
+  transition     : var(--transition);
+  box-shadow     : var(--shadow-sm);
+}
+
+.theme-picker-btn:hover {
+  transform : scale(1.1);
+  box-shadow: var(--shadow-md);
+}
+
+.theme-picker-panel {
+  position     : absolute;
+  top          : 48px;
+  right        : 0;
+  background   : var(--bg-card);
+  border       : 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding      : 14px;
+  box-shadow   : var(--shadow-lg);
+  display      : none;
+  z-index      : 999;
+  min-width    : 200px;
+}
+
+.theme-picker-panel.open { display: block; }
+
+.theme-picker-panel h4 {
+  font-size    : 0.78rem;
+  color        : var(--text-muted);
+  font-weight  : 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.color-swatches {
+  display              : grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap                  : 8px;
+}
+
+.color-swatch {
+  width        : 36px;
+  height       : 36px;
+  border-radius: 50%;
+  border       : 2px solid transparent;
+  cursor       : pointer;
+  transition   : var(--transition);
+  position     : relative;
+}
+
+.color-swatch:hover  { transform: scale(1.15); }
+
+.color-swatch.active {
+  border-color: var(--text-primary);
+  transform   : scale(1.15);
+}
+
+.color-swatch::after {
+  content      : '';
+  position     : absolute;
+  inset        : 2px;
+  border-radius: 50%;
+}
+
+.swatch-lavender { background: #C4B8F0; }
+.swatch-peach    { background: #FFB997; }
+.swatch-mint     { background: #7ED8C0; }
+.swatch-sky      { background: #7EC8E3; }
+.swatch-rose     { background: #F4A7B9; }
+.swatch-amber    { background: #FFD166; }
+.swatch-sage     { background: #A8C5A0; }
+.swatch-coral    { background: #FF8C8C; }

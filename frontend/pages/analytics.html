@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudyMind — Analytics</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/dashboard.css"/>
+  <link rel="stylesheet" href="../css/analytics.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="analytics-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo"><span>🎓</span> StudyMind</div>
+    <div class="nav-right">
+      <div class="theme-picker-wrap">
+        <button class="theme-picker-btn" id="themePickerBtn"></button>
+        <div class="theme-picker-panel" id="themePickerPanel">
+          <h4>Background Color</h4>
+          <div class="color-swatches">
+            <div class="color-swatch swatch-lavender" data-bg="lavender"></div>
+            <div class="color-swatch swatch-peach"    data-bg="peach"></div>
+            <div class="color-swatch swatch-mint"     data-bg="mint"></div>
+            <div class="color-swatch swatch-sky"      data-bg="sky"></div>
+            <div class="color-swatch swatch-rose"     data-bg="rose"></div>
+            <div class="color-swatch swatch-amber"    data-bg="amber"></div>
+            <div class="color-swatch swatch-sage"     data-bg="sage"></div>
+            <div class="color-swatch swatch-coral"    data-bg="coral"></div>
+          </div>
+        </div>
+      </div>
+      <a href="./dashboard.html" class="btn btn-ghost" style="font-size:0.85rem;">← Dashboard</a>
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <div class="nav-user">
+        <div class="nav-avatar" id="navAvatar">S</div>
+        <span id="navUsername">Student</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="analytics-container">
+    <div class="page-header">
+      <h1>📊 Analytics Dashboard</h1>
+      <p>Track your study patterns, focus scores and learning progress</p>
+    </div>
+
+    <!-- Streak Banner -->
+    <div class="streak-banner">
+      <div class="streak-info">
+        <h3>🔥 Study Streak</h3>
+        <p>Keep studying daily to maintain your streak!</p>
+      </div>
+      <div class="streak-count">
+        <span id="streakCount">0</span> days
+      </div>
+    </div>
+
+    <!-- Overview Stats -->
+    <div class="overview-grid">
+      <div class="overview-card">
+        <div class="overview-icon">⏱️</div>
+        <div class="overview-value mono" id="totalHours">0h</div>
+        <div class="overview-label">Total Study Time</div>
+        <div class="overview-change change-up" id="hoursChange">This week</div>
+      </div>
+      <div class="overview-card">
+        <div class="overview-icon">🎯</div>
+        <div class="overview-value mono" id="avgFocus">0%</div>
+        <div class="overview-label">Avg Focus Score</div>
+        <div class="overview-change change-up">Last 7 days</div>
+      </div>
+      <div class="overview-card">
+        <div class="overview-icon">✅</div>
+        <div class="overview-value mono" id="tasksCompleted">0</div>
+        <div class="overview-label">Tasks Completed</div>
+        <div class="overview-change change-up">All time</div>
+      </div>
+      <div class="overview-card">
+        <div class="overview-icon">🏆</div>
+        <div class="overview-value mono" id="goalsAchieved">0</div>
+        <div class="overview-label">Goals Achieved</div>
+        <div class="overview-change change-up">All time</div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">📈 Study Hours — Last 7 Days</div>
+            <div class="chart-subtitle">Daily study time in minutes</div>
+          </div>
+        </div>
+        <canvas id="studyChart" height="120"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">🎯 Task Priority</div>
+            <div class="chart-subtitle">Distribution of tasks</div>
+          </div>
+        </div>
+        <canvas id="priorityChart" height="180"></canvas>
+      </div>
+    </div>
+
+    <!-- Bottom Grid -->
+    <div class="bottom-grid">
+
+      <!-- Subject Progress -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">📚 Subject Progress</div>
+        </div>
+        <div id="subjectList">
+          <div class="subject-item">
+            <div class="subject-name">Mathematics</div>
+            <div class="subject-bar-bg">
+              <div class="subject-bar-fill" style="width:75%;background:var(--accent-sky)"></div>
+            </div>
+            <div class="subject-pct">75%</div>
+          </div>
+          <div class="subject-item">
+            <div class="subject-name">Physics</div>
+            <div class="subject-bar-bg">
+              <div class="subject-bar-fill" style="width:60%;background:var(--accent-rose)"></div>
+            </div>
+            <div class="subject-pct">60%</div>
+          </div>
+          <div class="subject-item">
+            <div class="subject-name">Chemistry</div>
+            <div class="subject-bar-bg">
+              <div class="subject-bar-fill" style="width:45%;background:var(--accent-mint)"></div>
+            </div>
+            <div class="subject-pct">45%</div>
+          </div>
+          <div class="subject-item">
+            <div class="subject-name">English</div>
+            <div class="subject-bar-bg">
+              <div class="subject-bar-fill" style="width:88%;background:var(--accent-amber)"></div>
+            </div>
+            <div class="subject-pct">88%</div>
+          </div>
+          <div class="subject-item">
+            <div class="subject-name">History</div>
+            <div class="subject-bar-bg">
+              <div class="subject-bar-fill" style="width:30%;background:var(--accent-coral)"></div>
+            </div>
+            <div class="subject-pct">30%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Heatmap -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">📅 Activity — Last 4 Weeks</div>
+        </div>
+        <div class="heatmap-labels">
+          <div class="heatmap-label">S</div>
+          <div class="heatmap-label">M</div>
+          <div class="heatmap-label">T</div>
+          <div class="heatmap-label">W</div>
+          <div class="heatmap-label">T</div>
+          <div class="heatmap-label">F</div>
+          <div class="heatmap-label">S</div>
+        </div>
+        <div class="heatmap-grid" id="heatmapGrid"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/analytics.js"></script>
+</body>
+</html> 

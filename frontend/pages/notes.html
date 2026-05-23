@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudyMind — Notes</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/dashboard.css"/>
+  <link rel="stylesheet" href="../css/notes.css"/>
+</head>
+<body class="notes-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo"><span>🎓</span> StudyMind</div>
+    <div class="nav-right">
+      <div class="theme-picker-wrap">
+        <button class="theme-picker-btn" id="themePickerBtn"></button>
+        <div class="theme-picker-panel" id="themePickerPanel">
+          <h4>Background Color</h4>
+          <div class="color-swatches">
+            <div class="color-swatch swatch-lavender" data-bg="lavender"></div>
+            <div class="color-swatch swatch-peach"    data-bg="peach"></div>
+            <div class="color-swatch swatch-mint"     data-bg="mint"></div>
+            <div class="color-swatch swatch-sky"      data-bg="sky"></div>
+            <div class="color-swatch swatch-rose"     data-bg="rose"></div>
+            <div class="color-swatch swatch-amber"    data-bg="amber"></div>
+            <div class="color-swatch swatch-sage"     data-bg="sage"></div>
+            <div class="color-swatch swatch-coral"    data-bg="coral"></div>
+          </div>
+        </div>
+      </div>
+      <a href="./dashboard.html" class="btn btn-ghost" style="font-size:0.85rem;">← Dashboard</a>
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <div class="nav-user">
+        <div class="nav-avatar" id="navAvatar">S</div>
+        <span id="navUsername">Student</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="notes-container">
+    <div class="page-header">
+      <h1>🧾 Smart Notes</h1>
+      <p>Write notes and let AI summarize, extract keywords and generate flashcards</p>
+    </div>
+
+    <div class="notes-layout">
+
+      <!-- Sidebar -->
+      <div class="notes-sidebar">
+        <div class="sidebar-header">
+          <h3>📝 My Notes</h3>
+          <button class="new-note-btn" id="newNoteBtn" title="New Note">+</button>
+        </div>
+        <div class="notes-search">
+          <input type="text" class="input-field" id="searchNotes"
+                 placeholder="🔍 Search notes..." style="font-size:0.85rem;padding:9px 12px;"/>
+        </div>
+        <div class="notes-list-sidebar" id="notesList">
+          <div style="padding:20px;text-align:center;color:var(--text-muted);font-size:0.85rem;">
+            No notes yet
+          </div>
+        </div>
+      </div>
+
+      <!-- Editor -->
+      <div class="note-editor" id="noteEditor">
+
+        <!-- Empty State -->
+        <div class="editor-empty" id="editorEmpty">
+          <div class="empty-icon">🧾</div>
+          <p>Select a note or create a new one</p>
+        </div>
+
+        <!-- Editor Content (hidden until note selected) -->
+        <div id="editorContent" style="display:none;">
+          <div class="editor-toolbar">
+            <div style="font-size:0.78rem;color:var(--text-muted)" id="autoSaveStatus">
+              ✏️ Editing
+            </div>
+            <div class="toolbar-actions">
+              <button class="toolbar-btn ai-btn" id="aiSummarizeBtn">
+                ✨ AI Summary
+              </button>
+              <button class="toolbar-btn ai-btn" id="aiKeywordsBtn">
+                🔑 Keywords
+              </button>
+              <button class="toolbar-btn ai-btn" id="aiFlashcardsBtn">
+                🃏 Flashcards
+              </button>
+              <button class="toolbar-btn save-btn" id="saveNoteBtn">
+                💾 Save
+              </button>
+              <button class="toolbar-btn" id="deleteNoteBtn"
+                      style="color:var(--accent-danger);border-color:var(--accent-danger);">
+                🗑 Delete
+              </button>
+            </div>
+          </div>
+
+          <input type="text" class="note-title-input" id="noteTitleInput"
+                 placeholder="Note title..." />
+
+          <textarea class="note-content-input" id="noteContentInput"
+                    placeholder="Start writing your notes here...&#10;&#10;Tip: Write detailed notes and click ✨ AI Summary to get an instant summary, keywords, and flashcards!"></textarea>
+
+          <!-- AI Results -->
+          <div class="ai-panel" id="aiPanel">
+            <h4>✨ AI Analysis</h4>
+            <div id="aiResults"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/notes.js"></script>
+</body>
+</html> 

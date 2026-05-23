@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyMind — Smart Study Assistant</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/auth.css" />
+</head>
+<body class="auth-page">
+
+  <!-- Theme Toggle -->
+  <div class="auth-theme-toggle">
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
+  </div>
+
+  <!-- Auth Card -->
+  <div class="auth-card">
+
+    <!-- Logo -->
+    <div class="auth-logo">
+      <div class="logo-icon">🎓</div>
+      <h1>StudyMind</h1>
+      <p>Your AI-powered study companion</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="loginTab">Login</button>
+      <button class="auth-tab" id="signupTab">Sign Up</button>
+    </div>
+
+    <!-- Login Form -->
+    <div id="loginForm">
+      <div class="auth-form">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input type="text" id="loginUsername" class="input-field" placeholder="Enter your username" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="loginPassword" class="input-field" placeholder="Enter your password" />
+        </div>
+        <button class="auth-submit" id="loginBtn">Login →</button>
+        <div class="auth-message" id="loginMessage"></div>
+      </div>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signupForm" style="display:none;">
+      <div class="auth-form">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input type="text" id="signupUsername" class="input-field" placeholder="Choose a username" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" id="signupEmail" class="input-field" placeholder="Enter your email" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="signupPassword" class="input-field" placeholder="Create a password" />
+        </div>
+        <button class="auth-submit" id="signupBtn">Create Account →</button>
+        <div class="auth-message" id="signupMessage"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html> 

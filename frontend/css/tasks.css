@@ -1,0 +1,270 @@
+@import url('./variables.css');
+
+.tasks-body {
+  min-height : 100vh;
+  background : var(--bg-primary);
+  font-family: var(--font-main);
+}
+
+.tasks-container {
+  max-width: 800px;
+  margin   : 0 auto;
+  padding  : 32px 24px;
+}
+
+/* ── Page Header ───────────────────────────────────── */
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+  font-size  : 1.6rem;
+  font-weight: 700;
+  color      : var(--text-primary);
+}
+
+.page-header p {
+  font-size : 0.9rem;
+  color     : var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ── Add Task Card ─────────────────────────────────── */
+.add-task-card {
+  background   : var(--bg-card);
+  border-radius: var(--radius-lg);
+  border       : 1px solid var(--border-color);
+  box-shadow   : var(--shadow-sm);
+  padding      : 24px;
+  margin-bottom: 24px;
+}
+
+.add-task-card h3 {
+  font-size    : 0.9rem;
+  font-weight  : 600;
+  color        : var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.task-inputs {
+  display              : grid;
+  grid-template-columns: 1fr 1fr;
+  gap                  : 12px;
+  margin-bottom        : 12px;
+}
+
+.task-inputs .full-width { grid-column: 1 / -1; }
+
+.add-task-btn {
+  width        : 100%;
+  padding      : 12px;
+  background   : var(--accent-peach);
+  color        : #5A2D0C;
+  border       : none;
+  border-radius: var(--radius-sm);
+  font-family  : var(--font-main);
+  font-size    : 0.95rem;
+  font-weight  : 600;
+  cursor       : pointer;
+  transition   : var(--transition);
+  margin-top   : 4px;
+}
+
+.add-task-btn:hover {
+  opacity  : 0.9;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Filter Bar ────────────────────────────────────── */
+.filter-bar {
+  display      : flex;
+  gap          : 8px;
+  margin-bottom: 20px;
+  flex-wrap    : wrap;
+}
+
+.filter-btn {
+  padding      : 7px 16px;
+  border-radius: 20px;
+  border       : 1.5px solid var(--border-color);
+  background   : var(--bg-card);
+  font-family  : var(--font-main);
+  font-size    : 0.82rem;
+  font-weight  : 500;
+  color        : var(--text-muted);
+  cursor       : pointer;
+  transition   : var(--transition);
+}
+
+.filter-btn.active {
+  background  : var(--accent-peach);
+  color       : #5A2D0C;
+  border-color: var(--accent-peach);
+}
+
+/* ── Task List ─────────────────────────────────────── */
+.task-list { display: flex; flex-direction: column; gap: 10px; }
+
+/* ── Task Item ─────────────────────────────────────── */
+.task-item {
+  background   : var(--bg-card);
+  border-radius: var(--radius-md);
+  border       : 1px solid var(--border-color);
+  padding      : 16px 20px;
+  display      : flex;
+  align-items  : center;
+  gap          : 14px;
+  transition   : var(--transition);
+  animation    : fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.task-item:hover { box-shadow: var(--shadow-md); transform: translateX(2px); }
+
+.task-item.completed { opacity: 0.6; }
+
+/* ── Checkbox ──────────────────────────────────────── */
+.task-checkbox {
+  width          : 22px;
+  height         : 22px;
+  border-radius  : 6px;
+  border         : 2px solid var(--border-color);
+  background     : transparent;
+  cursor         : pointer;
+  flex-shrink    : 0;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  transition     : var(--transition);
+  font-size      : 0.8rem;
+}
+
+.task-checkbox.checked {
+  background  : var(--accent-success);
+  border-color: var(--accent-success);
+  color       : white;
+}
+
+/* ── Task Content ──────────────────────────────────── */
+.task-content { flex: 1; min-width: 0; }
+
+.task-title {
+  font-size  : 0.95rem;
+  font-weight: 500;
+  color      : var(--text-primary);
+  transition : var(--transition);
+}
+
+.task-item.completed .task-title {
+  text-decoration: line-through;
+  color          : var(--text-muted);
+}
+
+.task-meta {
+  display    : flex;
+  align-items: center;
+  gap        : 8px;
+  margin-top : 6px;
+  flex-wrap  : wrap;
+}
+
+/* ── Priority Badge ────────────────────────────────── */
+.priority-badge {
+  padding      : 2px 10px;
+  border-radius: 20px;
+  font-size    : 0.72rem;
+  font-weight  : 600;
+}
+
+.priority-high   { background: #FFE0E0; color: #C0392B; }
+.priority-medium { background: #FFF3CD; color: #856404; }
+.priority-low    { background: #D5F5E3; color: #1E8449; }
+
+[data-theme="dark"] .priority-high   { background: #3D1515; color: #F87171; }
+[data-theme="dark"] .priority-medium { background: #3D3010; color: #FCD34D; }
+[data-theme="dark"] .priority-low    { background: #153D20; color: #4ADE80; }
+
+/* ── Due Date ──────────────────────────────────────── */
+.due-date {
+  font-size : 0.75rem;
+  color     : var(--text-muted);
+  display   : flex;
+  align-items: center;
+  gap       : 3px;
+}
+
+.due-date.overdue { color: var(--accent-danger); font-weight: 600; }
+
+/* ── Task Actions ──────────────────────────────────── */
+.task-actions { display: flex; gap: 6px; }
+
+.task-action-btn {
+  width          : 30px;
+  height         : 30px;
+  border-radius  : 8px;
+  border         : 1px solid var(--border-color);
+  background     : transparent;
+  cursor         : pointer;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  font-size      : 0.85rem;
+  transition     : var(--transition);
+  color          : var(--text-muted);
+}
+
+.task-action-btn:hover { background: var(--bg-secondary); color: var(--text-primary); }
+.task-action-btn.delete:hover { background: #FFE0E0; color: var(--accent-danger); }
+
+/* ── Empty State ───────────────────────────────────── */
+.empty-state {
+  text-align : center;
+  padding    : 48px 24px;
+  color      : var(--text-muted);
+}
+
+.empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.empty-state p            { font-size: 0.9rem; }
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 600px) {
+  .task-inputs { grid-template-columns: 1fr; }
+} 
+
+/* ── Fully Clickable Select & Date ─────────────────── */
+select.input-field,
+input[type="date"].input-field {
+  width           : 100%;
+  padding         : 12px 16px;
+  border-radius   : var(--radius-sm);
+  border          : 1.5px solid var(--border-color);
+  background      : var(--bg-primary);
+  color           : var(--text-primary);
+  font-family     : var(--font-main);
+  font-size       : 0.95rem;
+  cursor          : pointer;
+  outline         : none;
+  transition      : var(--transition);
+  appearance      : none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239CA3AF' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat  : no-repeat;
+  background-position: right 14px center;
+}
+
+select.input-field:hover,
+input[type="date"].input-field:hover {
+  border-color: var(--accent-primary);
+  background-color: var(--bg-secondary);
+}
+
+select.input-field:focus,
+input[type="date"].input-field:focus {
+  border-color: var(--accent-primary);
+  box-shadow  : 0 0 0 3px rgba(124,111,205,0.1);
+}

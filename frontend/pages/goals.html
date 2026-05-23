@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StudyMind — Goals</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/dashboard.css"/>
+  <link rel="stylesheet" href="../css/goals.css"/>
+</head>
+<body class="goals-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo"><span>🎓</span> StudyMind</div>
+    <div class="nav-right">
+      <div class="theme-picker-wrap">
+        <button class="theme-picker-btn" id="themePickerBtn"></button>
+        <div class="theme-picker-panel" id="themePickerPanel">
+          <h4>Background Color</h4>
+          <div class="color-swatches">
+            <div class="color-swatch swatch-lavender" data-bg="lavender"></div>
+            <div class="color-swatch swatch-peach"    data-bg="peach"></div>
+            <div class="color-swatch swatch-mint"     data-bg="mint"></div>
+            <div class="color-swatch swatch-sky"      data-bg="sky"></div>
+            <div class="color-swatch swatch-rose"     data-bg="rose"></div>
+            <div class="color-swatch swatch-amber"    data-bg="amber"></div>
+            <div class="color-swatch swatch-sage"     data-bg="sage"></div>
+            <div class="color-swatch swatch-coral"    data-bg="coral"></div>
+          </div>
+        </div>
+      </div>
+      <a href="./dashboard.html" class="btn btn-ghost" style="font-size:0.85rem;">← Dashboard</a>
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <div class="nav-user">
+        <div class="nav-avatar" id="navAvatar">S</div>
+        <span id="navUsername">Student</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="goals-container">
+    <div class="page-header">
+      <h1>🎯 Goal Tracking</h1>
+      <p>Set targets, track progress and achieve your study milestones</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="goals-stats">
+      <div class="goal-stat">
+        <div class="goal-stat-value" id="statTotal">0</div>
+        <div class="goal-stat-label">Total Goals</div>
+      </div>
+      <div class="goal-stat" style="background:var(--card-rose);border-color:var(--accent-rose)">
+        <div class="goal-stat-value" id="statCompleted">0</div>
+        <div class="goal-stat-label">Completed 🏆</div>
+      </div>
+      <div class="goal-stat" style="background:var(--card-mint);border-color:var(--accent-mint)">
+        <div class="goal-stat-value" id="statInProgress">0</div>
+        <div class="goal-stat-label">In Progress 🔥</div>
+      </div>
+    </div>
+
+    <div class="goals-layout">
+
+      <!-- Add Goal -->
+      <div class="add-goal-card">
+        <h3>🎯 New Goal</h3>
+        <div class="add-goal-form">
+          <input type="text" id="goalTitle" class="input-field"
+                 placeholder="What do you want to achieve?" />
+          <select id="goalType" class="input-field" style="cursor:pointer;">
+            <option value="daily">📅 Daily Goal</option>
+            <option value="weekly">📆 Weekly Goal</option>
+            <option value="monthly">🗓️ Monthly Goal</option>
+          </select>
+          <div>
+            <label class="form-label" style="font-size:0.82rem;color:var(--text-muted);margin-bottom:6px;display:block;">
+              Target (hours / sessions / pages)
+            </label>
+            <input type="number" id="goalTarget" class="input-field"
+                   placeholder="e.g. 5" min="1" />
+          </div>
+          <button class="add-goal-btn" id="addGoalBtn">+ Add Goal</button>
+        </div>
+      </div>
+
+      <!-- Goals List -->
+      <div>
+        <!-- Type Filter -->
+        <div class="type-filter">
+          <button class="type-btn active" data-type="all">All</button>
+          <button class="type-btn" data-type="daily">📅 Daily</button>
+          <button class="type-btn" data-type="weekly">📆 Weekly</button>
+          <button class="type-btn" data-type="monthly">🗓️ Monthly</button>
+          <button class="type-btn" data-type="completed">🏆 Completed</button>
+        </div>
+
+        <div class="goals-list" id="goalsList">
+          <div class="empty-state">
+            <div class="empty-icon">🎯</div>
+            <p>No goals yet — add your first goal!</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/goals.js"></script>
+</body>
+</html> 

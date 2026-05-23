@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyMind — Dashboard</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+</head>
+<body class="dashboard-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <span>🎓</span>
+      StudyMind
+    </div>
+    <!-- <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <div class="nav-user">
+        <div class="nav-avatar" id="navAvatar">S</div>
+        <span id="navUsername">Student</span>
+      </div>
+    </div> -->
+    <div class="nav-right">
+
+  <!-- Color Theme Picker -->
+  <div class="theme-picker-wrap">
+    <button class="theme-picker-btn" id="themePickerBtn" title="Change background color"></button>
+    <div class="theme-picker-panel" id="themePickerPanel">
+      <h4>Background Color</h4>
+      <div class="color-swatches">
+        <div class="color-swatch swatch-lavender" data-bg="lavender" title="Lavender"></div>
+        <div class="color-swatch swatch-peach"    data-bg="peach"    title="Peach"></div>
+        <div class="color-swatch swatch-mint"     data-bg="mint"     title="Mint"></div>
+        <div class="color-swatch swatch-sky"      data-bg="sky"      title="Sky"></div>
+        <div class="color-swatch swatch-rose"     data-bg="rose"     title="Rose"></div>
+        <div class="color-swatch swatch-amber"    data-bg="amber"    title="Amber"></div>
+        <div class="color-swatch swatch-sage"     data-bg="sage"     title="Sage"></div>
+        <div class="color-swatch swatch-coral"    data-bg="coral"    title="Coral"></div>
+      </div>
+    </div>
+  </div>
+
+  <button class="theme-toggle" id="themeToggle">🌙</button>
+  <div class="nav-user">
+    <div class="nav-avatar" id="navAvatar">S</div>
+    <span id="navUsername">Student</span>
+  </div>
+</div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="dashboard-main">
+
+    <!-- Welcome Banner -->
+    <div class="welcome-banner">
+      <div class="welcome-text">
+        <h2 id="welcomeText">Good Morning! 👋</h2>
+        <p>Ready to have a productive study session today?</p>
+      </div>
+      <div class="welcome-emoji">📚</div>
+    </div>
+
+    <!-- Motivational Quotes -->
+    <div class="quotes-section">
+      <div class="quote-label">✦ daily motivation ✦</div>
+      <div class="quote-text" id="quoteText">Loading quote...</div>
+      <div class="quote-author" id="quoteAuthor"></div>
+      <div class="quote-dots" id="quoteDots"></div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-value mono" id="statHours">0h 0m</div>
+        <div class="stat-label">Study Time Today</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-value mono" id="statFocus">--%</div>
+        <div class="stat-label">Focus Score</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-value mono" id="statTasks">0/0</div>
+        <div class="stat-label">Tasks Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-value mono" id="statStreak">0</div>
+        <div class="stat-label">Day Streak</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <a class="action-btn" href="./timer.html">
+        <div class="action-icon">⏱️</div>
+        <div class="action-label">Study Timer</div>
+      </a>
+      <a class="action-btn" href="./tasks.html">
+        <div class="action-icon">✅</div>
+        <div class="action-label">To-Do List</div>
+      </a>
+      <a class="action-btn" href="./notes.html">
+        <div class="action-icon">🧾</div>
+        <div class="action-label">Smart Notes</div>
+      </a>
+      <a class="action-btn" href="./goals.html">
+        <div class="action-icon">🎯</div>
+        <div class="action-label">Goals</div>
+      </a>
+      <a class="action-btn" href="./calendar.html">
+        <div class="action-icon">🗓️</div>
+        <div class="action-label">Calendar</div>
+      </a>
+      <a class="action-btn" href="./analytics.html">
+        <div class="action-icon">📊</div>
+        <div class="action-label">Analytics</div>
+      </a>
+      <a class="action-btn" href="./flashcards.html">
+        <div class="action-icon">🃏</div>
+        <div class="action-label">Flashcards</div>
+      </a>
+      <a class="action-btn" href="./focus.html">
+        <div class="action-icon">🌙</div>
+        <div class="action-label">Focus Mode</div>
+      </a>
+    </div>
+
+  </main>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/dashboard.js"></script>
+</body>
+</html> 

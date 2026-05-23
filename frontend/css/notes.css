@@ -1,0 +1,291 @@
+@import url('./variables.css');
+
+.notes-body {
+  min-height : 100vh;
+  background : var(--bg-primary);
+  font-family: var(--font-main);
+}
+
+.notes-container {
+  max-width: 1100px;
+  margin   : 0 auto;
+  padding  : 32px 24px;
+}
+
+/* ── Notes Layout ──────────────────────────────────── */
+.notes-layout {
+  display              : grid;
+  grid-template-columns: 280px 1fr;
+  gap                  : 24px;
+  align-items          : start;
+}
+
+/* ── Sidebar ───────────────────────────────────────── */
+.notes-sidebar {
+  background   : var(--bg-card);
+  border-radius: var(--radius-lg);
+  border       : 1px solid var(--border-color);
+  box-shadow   : var(--shadow-sm);
+  overflow     : hidden;
+  position     : sticky;
+  top          : 90px;
+}
+
+.sidebar-header {
+  padding    : 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background : var(--card-amber);
+  display    : flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-header h3 {
+  font-size  : 0.9rem;
+  font-weight: 700;
+  color      : var(--text-primary);
+}
+
+.new-note-btn {
+  width          : 28px;
+  height         : 28px;
+  border-radius  : 8px;
+  border         : none;
+  background     : var(--accent-amber);
+  color          : white;
+  font-size      : 1.1rem;
+  cursor         : pointer;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  transition     : var(--transition);
+}
+
+.new-note-btn:hover { opacity: 0.85; transform: scale(1.1); }
+
+.notes-search {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.notes-list-sidebar {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.note-list-item {
+  padding      : 14px 20px;
+  border-bottom: 1px solid var(--border-color);
+  cursor       : pointer;
+  transition   : var(--transition);
+}
+
+.note-list-item:hover    { background: var(--bg-secondary); }
+.note-list-item.active   { background: var(--card-amber); border-left: 3px solid var(--accent-amber); }
+
+.note-list-title {
+  font-size  : 0.88rem;
+  font-weight: 600;
+  color      : var(--text-primary);
+  white-space: nowrap;
+  overflow   : hidden;
+  text-overflow: ellipsis;
+}
+
+.note-list-preview {
+  font-size  : 0.75rem;
+  color      : var(--text-muted);
+  margin-top : 3px;
+  white-space: nowrap;
+  overflow   : hidden;
+  text-overflow: ellipsis;
+}
+
+.note-list-date {
+  font-size : 0.7rem;
+  color     : var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ── Editor ────────────────────────────────────────── */
+.note-editor {
+  background   : var(--bg-card);
+  border-radius: var(--radius-lg);
+  border       : 1px solid var(--border-color);
+  box-shadow   : var(--shadow-sm);
+  overflow     : hidden;
+}
+
+.editor-toolbar {
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+  padding        : 14px 20px;
+  border-bottom  : 1px solid var(--border-color);
+  background     : var(--bg-secondary);
+  flex-wrap      : wrap;
+  gap            : 10px;
+}
+
+.toolbar-actions { display: flex; gap: 8px; }
+
+.toolbar-btn {
+  padding      : 7px 14px;
+  border-radius: var(--radius-sm);
+  border       : 1.5px solid var(--border-color);
+  background   : var(--bg-card);
+  font-family  : var(--font-main);
+  font-size    : 0.82rem;
+  font-weight  : 600;
+  cursor       : pointer;
+  transition   : var(--transition);
+  color        : var(--text-secondary);
+  display      : flex;
+  align-items  : center;
+  gap          : 5px;
+}
+
+.toolbar-btn:hover { background: var(--bg-primary); color: var(--text-primary); }
+
+.toolbar-btn.ai-btn {
+  background  : var(--accent-amber);
+  color       : white;
+  border-color: var(--accent-amber);
+}
+
+.toolbar-btn.ai-btn:hover { opacity: 0.9; }
+
+.toolbar-btn.save-btn {
+  background  : var(--accent-sage);
+  color       : white;
+  border-color: var(--accent-sage);
+}
+
+.note-title-input {
+  width       : 100%;
+  padding     : 20px 24px 0;
+  border      : none;
+  background  : transparent;
+  font-family : var(--font-main);
+  font-size   : 1.4rem;
+  font-weight : 700;
+  color       : var(--text-primary);
+  outline     : none;
+}
+
+.note-title-input::placeholder { color: var(--text-muted); }
+
+.note-content-input {
+  width      : 100%;
+  min-height : 320px;
+  padding    : 16px 24px;
+  border     : none;
+  background : transparent;
+  font-family: var(--font-main);
+  font-size  : 0.95rem;
+  color      : var(--text-primary);
+  outline    : none;
+  resize     : vertical;
+  line-height: 1.8;
+}
+
+.note-content-input::placeholder { color: var(--text-muted); }
+
+/* ── AI Results Panel ──────────────────────────────── */
+.ai-panel {
+  border-top: 1px solid var(--border-color);
+  padding   : 20px 24px;
+  display   : none;
+  background: var(--card-amber);
+}
+
+.ai-panel.visible { display: block; }
+
+.ai-panel h4 {
+  font-size    : 0.85rem;
+  font-weight  : 700;
+  color        : var(--text-secondary);
+  margin-bottom: 12px;
+  display      : flex;
+  align-items  : center;
+  gap          : 6px;
+}
+
+.ai-result-section {
+  background   : var(--bg-card);
+  border-radius: var(--radius-sm);
+  border       : 1px solid var(--border-color);
+  padding      : 14px 16px;
+  margin-bottom: 12px;
+}
+
+.ai-result-section h5 {
+  font-size    : 0.78rem;
+  font-weight  : 700;
+  color        : var(--accent-amber);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ai-result-section p {
+  font-size  : 0.88rem;
+  color      : var(--text-primary);
+  line-height: 1.6;
+}
+
+.keywords-wrap {
+  display  : flex;
+  flex-wrap: wrap;
+  gap      : 6px;
+}
+
+.keyword-tag {
+  padding      : 3px 10px;
+  background   : var(--card-amber);
+  border       : 1px solid var(--accent-amber);
+  border-radius: 20px;
+  font-size    : 0.75rem;
+  font-weight  : 500;
+  color        : var(--text-secondary);
+}
+
+/* ── Loading ───────────────────────────────────────── */
+.ai-loading {
+  display    : flex;
+  align-items: center;
+  gap        : 8px;
+  color      : var(--text-muted);
+  font-size  : 0.88rem;
+  padding    : 12px 0;
+}
+
+.spinner {
+  width        : 16px;
+  height       : 16px;
+  border       : 2px solid var(--border-color);
+  border-top   : 2px solid var(--accent-amber);
+  border-radius: 50%;
+  animation    : spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Empty Editor ──────────────────────────────────── */
+.editor-empty {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  justify-content: center;
+  min-height     : 400px;
+  color          : var(--text-muted);
+}
+
+.editor-empty .empty-icon { font-size: 3rem; margin-bottom: 12px; }
+.editor-empty p { font-size: 0.9rem; }
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .notes-layout { grid-template-columns: 1fr; }
+  .notes-sidebar { position: static; }
+} 

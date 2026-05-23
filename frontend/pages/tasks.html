@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StudyMind — Tasks</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/tasks.css" />
+</head>
+<body class="tasks-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo"><span>🎓</span> StudyMind</div>
+    <div class="nav-right">
+      <div class="theme-picker-wrap">
+        <button class="theme-picker-btn" id="themePickerBtn" title="Change background color"></button>
+        <div class="theme-picker-panel" id="themePickerPanel">
+          <h4>Background Color</h4>
+          <div class="color-swatches">
+            <div class="color-swatch swatch-lavender" data-bg="lavender"></div>
+            <div class="color-swatch swatch-peach"    data-bg="peach"></div>
+            <div class="color-swatch swatch-mint"     data-bg="mint"></div>
+            <div class="color-swatch swatch-sky"      data-bg="sky"></div>
+            <div class="color-swatch swatch-rose"     data-bg="rose"></div>
+            <div class="color-swatch swatch-amber"    data-bg="amber"></div>
+            <div class="color-swatch swatch-sage"     data-bg="sage"></div>
+            <div class="color-swatch swatch-coral"    data-bg="coral"></div>
+          </div>
+        </div>
+      </div>
+      <a href="./dashboard.html" class="btn btn-ghost" style="font-size:0.85rem;">← Dashboard</a>
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <div class="nav-user">
+        <div class="nav-avatar" id="navAvatar">S</div>
+        <span id="navUsername">Student</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="tasks-container">
+
+    <!-- Header -->
+    <div class="page-header">
+      <h1>✅ To-Do List</h1>
+      <p>Manage your tasks and stay on top of your study goals</p>
+    </div>
+
+    <!-- Add Task -->
+    <div class="add-task-card">
+      <h3>+ Add New Task</h3>
+      <div class="task-inputs">
+        <input type="text" id="taskTitle" class="input-field full-width"
+               placeholder="Task title..." />
+        <input type="text" id="taskDesc" class="input-field full-width"
+               placeholder="Description (optional)" />
+        <select id="taskPriority" class="input-field">
+          <option value="high">🔴 High Priority</option>
+          <option value="medium" selected>🟡 Medium Priority</option>
+          <option value="low">🟢 Low Priority</option>
+        </select>
+        <input type="date" id="taskDue" class="input-field" />
+      </div>
+      <button class="add-task-btn" id="addTaskBtn">+ Add Task</button>
+    </div>
+
+    <!-- Filters -->
+    <!-- Filters -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="active">Active</button>
+  <button class="filter-btn" data-filter="completed">Completed</button>
+  <button class="filter-btn" data-filter="high">🔴 High</button>
+  <button class="filter-btn" data-filter="medium">🟡 Medium</button>
+  <button class="filter-btn" data-filter="low">🟢 Low</button>
+  <button class="filter-btn" id="clearCompletedBtn" style="margin-left:auto; color:#E88080; border-color:#E88080;">🗑 Clear Completed</button>
+</div>
+
+    <!-- Task List -->
+    <div class="task-list" id="taskList">
+      <div class="empty-state">
+        <div class="empty-icon">📝</div>
+        <p>No tasks yet — add one above!</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/tasks.js"></script>
+</body>
+</html> 

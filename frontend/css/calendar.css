@@ -1,0 +1,258 @@
+@import url('./variables.css');
+
+.calendar-body {
+  min-height : 100vh;
+  background : var(--bg-primary);
+  font-family: var(--font-main);
+}
+
+.calendar-container {
+  max-width: 1000px;
+  margin   : 0 auto;
+  padding  : 32px 24px;
+}
+
+/* ── Calendar Grid Layout ──────────────────────────── */
+.calendar-layout {
+  display              : grid;
+  grid-template-columns: 1fr 340px;
+  gap                  : 24px;
+  align-items          : start;
+}
+
+/* ── Calendar Card ─────────────────────────────────── */
+.calendar-card {
+  background   : var(--bg-card);
+  border-radius: var(--radius-lg);
+  border       : 1px solid var(--border-color);
+  box-shadow   : var(--shadow-md);
+  overflow     : hidden;
+}
+
+/* ── Calendar Header ───────────────────────────────── */
+.calendar-header {
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+  padding        : 20px 24px;
+  background     : linear-gradient(135deg, var(--accent-sage), var(--accent-mint));
+  color          : white;
+}
+
+.calendar-header h2 {
+  font-size  : 1.2rem;
+  font-weight: 700;
+  color      : white;
+}
+
+.cal-nav-btn {
+  width          : 36px;
+  height         : 36px;
+  border-radius  : 50%;
+  border         : 1.5px solid rgba(255,255,255,0.4);
+  background     : rgba(255,255,255,0.2);
+  color          : white;
+  font-size      : 1rem;
+  cursor         : pointer;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  transition     : var(--transition);
+}
+
+.cal-nav-btn:hover { background: rgba(255,255,255,0.35); }
+
+/* ── Day Labels ────────────────────────────────────── */
+.day-labels {
+  display              : grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding              : 12px 16px 4px;
+  border-bottom        : 1px solid var(--border-color);
+}
+
+.day-label {
+  text-align : center;
+  font-size  : 0.75rem;
+  font-weight: 600;
+  color      : var(--text-muted);
+  padding    : 4px;
+}
+
+/* ── Days Grid ─────────────────────────────────────── */
+.days-grid {
+  display              : grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding              : 12px 16px 16px;
+  gap                  : 4px;
+}
+
+.day-cell {
+  aspect-ratio   : 1;
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  justify-content: center;
+  border-radius  : 10px;
+  font-size      : 0.88rem;
+  cursor         : pointer;
+  transition     : var(--transition);
+  position       : relative;
+  font-weight    : 500;
+  color          : var(--text-primary);
+}
+
+.day-cell:hover        { background: var(--bg-secondary); }
+.day-cell.other-month  { color: var(--text-muted); opacity: 0.4; }
+.day-cell.today {
+  background : var(--accent-sage);
+  color      : white;
+  font-weight: 700;
+}
+
+.day-cell.selected {
+  background  : var(--accent-mint);
+  color       : white;
+  box-shadow  : var(--shadow-sm);
+}
+
+.day-cell.has-events::after {
+  content      : '';
+  position     : absolute;
+  bottom       : 4px;
+  width        : 5px;
+  height       : 5px;
+  border-radius: 50%;
+  background   : var(--accent-sage);
+}
+
+.day-cell.today.has-events::after,
+.day-cell.selected.has-events::after { background: white; }
+
+/* ── Events Panel ──────────────────────────────────── */
+.events-panel {
+  background   : var(--bg-card);
+  border-radius: var(--radius-lg);
+  border       : 1px solid var(--border-color);
+  box-shadow   : var(--shadow-sm);
+  overflow     : hidden;
+}
+
+.events-header {
+  padding    : 18px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background : var(--card-sage);
+}
+
+.events-header h3 {
+  font-size  : 0.95rem;
+  font-weight: 700;
+  color      : var(--text-primary);
+}
+
+.events-header p {
+  font-size : 0.8rem;
+  color     : var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Add Event Form ────────────────────────────────── */
+.add-event-form {
+  padding      : 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  display      : flex;
+  flex-direction: column;
+  gap          : 10px;
+}
+
+.add-event-btn {
+  padding      : 10px;
+  background   : var(--accent-sage);
+  color        : white;
+  border       : none;
+  border-radius: var(--radius-sm);
+  font-family  : var(--font-main);
+  font-size    : 0.88rem;
+  font-weight  : 600;
+  cursor       : pointer;
+  transition   : var(--transition);
+}
+
+.add-event-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ── Events List ───────────────────────────────────── */
+.events-list {
+  padding   : 12px;
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.event-item {
+  display      : flex;
+  align-items  : center;
+  gap          : 10px;
+  padding      : 10px 12px;
+  border-radius: var(--radius-sm);
+  border       : 1px solid var(--border-color);
+  margin-bottom: 8px;
+  background   : var(--bg-primary);
+  transition   : var(--transition);
+  animation    : fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.event-item:hover { box-shadow: var(--shadow-sm); }
+
+.event-dot {
+  width        : 10px;
+  height       : 10px;
+  border-radius: 50%;
+  background   : var(--accent-sage);
+  flex-shrink  : 0;
+}
+
+.event-info { flex: 1; min-width: 0; }
+
+.event-title {
+  font-size  : 0.88rem;
+  font-weight: 500;
+  color      : var(--text-primary);
+}
+
+.event-date {
+  font-size : 0.75rem;
+  color     : var(--text-muted);
+  margin-top: 2px;
+}
+
+.event-delete {
+  width          : 26px;
+  height         : 26px;
+  border-radius  : 6px;
+  border         : 1px solid var(--border-color);
+  background     : transparent;
+  cursor         : pointer;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  font-size      : 0.8rem;
+  color          : var(--text-muted);
+  transition     : var(--transition);
+}
+
+.event-delete:hover { background: #FFE0E0; color: var(--accent-danger); }
+
+.no-events {
+  text-align: center;
+  padding   : 24px;
+  color     : var(--text-muted);
+  font-size : 0.88rem;
+}
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .calendar-layout { grid-template-columns: 1fr; }
+} 
