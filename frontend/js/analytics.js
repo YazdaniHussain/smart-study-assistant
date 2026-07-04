@@ -1,7 +1,7 @@
 // ── Auth Guard ────────────────────────────────────────
 const token = localStorage.getItem('token');
 const user  = JSON.parse(localStorage.getItem('user') || '{}');
-if (!token) window.location.href = './index.html';
+if (!token) window.location.href = '.pages/index.html';
 
 document.getElementById('navUsername').textContent = user.username || 'Student';
 document.getElementById('navAvatar').textContent   = (user.username || 'S')[0].toUpperCase();

@@ -289,3 +289,54 @@
   .notes-layout { grid-template-columns: 1fr; }
   .notes-sidebar { position: static; }
 } 
+
+/* ── Upload Button ─────────────────────────────────── */
+.upload-btn {
+  background  : var(--card-mint) !important;
+  color       : var(--accent-mint) !important;
+  border-color: var(--accent-mint) !important;
+  cursor      : pointer;
+}
+
+.upload-btn:hover {
+  background: var(--accent-mint) !important;
+  color     : white !important;
+}
+
+/* ── Upload Status ─────────────────────────────────── */
+.upload-status-bar {
+  padding        : 10px 24px;
+  background     : var(--card-amber);
+  border-bottom  : 1px solid var(--border-color);
+  font-size      : 0.85rem;
+  color          : var(--text-secondary);
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+  gap            : 8px;
+  animation      : fadeIn 0.3s ease;
+}
+
+.upload-filename {
+  font-weight: 600;
+  color      : var(--accent-amber);
+}
+
+.upload-chars {
+  font-family: var(--font-mono);
+  font-size  : 0.78rem;
+  color      : var(--text-muted);
+}
+
+.analyze-btn {
+  background  : linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) !important;
+  color       : white !important;
+  border-color: var(--accent-primary) !important;
+  animation   : pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(124,111,205,0.4); }
+  70%  { box-shadow: 0 0 0 6px rgba(124,111,205,0); }
+  100% { box-shadow: 0 0 0 0 rgba(124,111,205,0); }
+}

@@ -1,0 +1,482 @@
+/* ═══════════════════════════════════════════════════
+   COMPLETE MOBILE RESPONSIVE SYSTEM
+═══════════════════════════════════════════════════ */
+
+/* ── Base Mobile Fixes ─────────────────────────────── */
+@media (max-width: 768px) {
+
+  html { font-size: 14px; }
+
+  body {
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ── Navbar ────────────────────────────────────── */
+  .navbar {
+    padding  : 10px 14px;
+    gap      : 8px;
+    flex-wrap: nowrap;
+  }
+
+  .nav-logo       { font-size: 0.95rem; }
+  .nav-logo span  { width: 28px; height: 28px; font-size: 0.85rem; }
+  .nav-user span  { display: none; }
+  .nav-avatar     { width: 30px; height: 30px; font-size: 0.78rem; }
+  .theme-toggle   { width: 34px; height: 34px; font-size: 0.95rem; }
+
+  .theme-picker-btn  { width: 34px; height: 34px; }
+  .theme-picker-panel {
+    right    : -10px;
+    min-width: 180px;
+  }
+
+  .btn-ghost {
+    font-size : 0.75rem;
+    padding   : 6px 10px;
+  }
+
+  /* ── Page Container ────────────────────────────── */
+  .dashboard-main,
+  .tasks-container,
+  .notes-container,
+  .goals-container,
+  .analytics-container,
+  .flashcards-container,
+  .calendar-container,
+  .timer-container,
+  .emotion-container {
+    padding: 14px 12px;
+  }
+
+  /* ── Page Header ───────────────────────────────── */
+  .page-header       { margin-bottom: 16px; }
+  .page-header h1    { font-size: 1.4rem; }
+  .page-header p     { font-size: 0.82rem; }
+
+  /* ══════════════════════════════════════════════
+     DASHBOARD
+  ══════════════════════════════════════════════ */
+  .welcome-banner {
+    padding      : 16px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+  }
+  .welcome-banner h2 { font-size: 1.1rem; }
+  .welcome-banner p  { font-size: 0.8rem; }
+  .welcome-emoji     { display: none; }
+
+  .quotes-section {
+    padding   : 24px 16px;
+    min-height: 170px;
+    margin-bottom: 16px;
+  }
+  .quote-text   { font-size: 0.78rem; line-height: 1.7; }
+  .quote-label  { font-size: 0.6rem; }
+
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap                  : 10px;
+    margin-bottom        : 16px;
+  }
+  .stat-card    { padding: 14px 12px; }
+  .stat-value   { font-size: 1.4rem; }
+  .stat-label   { font-size: 0.72rem; }
+  .stat-icon    { font-size: 1.2rem; }
+
+  .quick-actions {
+    grid-template-columns: repeat(3, 1fr);
+    gap                  : 8px;
+    margin-bottom        : 16px;
+  }
+  .action-btn              { padding: 14px 6px; border-radius: 12px; }
+  .action-btn .action-icon { font-size: 1.4rem; margin-bottom: 6px; }
+  .action-btn .action-label{ font-size: 0.68rem; }
+
+  /* ══════════════════════════════════════════════
+     TIMER
+  ══════════════════════════════════════════════ */
+  .mode-selector { gap: 4px; padding: 4px; }
+  .mode-btn      { font-size: 0.72rem; padding: 8px 4px; }
+
+  .timer-card    { padding: 24px 14px; }
+
+  .timer-circle-wrap { width: 200px; height: 200px; }
+  .timer-svg         { width: 200px; height: 200px; }
+  .timer-time        { font-size: 2.2rem; letter-spacing: 1px; }
+  .timer-phase       { font-size: 0.72rem; }
+
+  .timer-controls    { gap: 12px; }
+  .ctrl-btn          { width: 42px; height: 42px; font-size: 1rem; }
+  .ctrl-btn-primary  { width: 58px; height: 58px; font-size: 1.4rem; }
+
+  .session-info         { gap: 8px; }
+  .info-card            { padding: 12px 8px; }
+  .info-value           { font-size: 1.1rem; }
+  .info-label           { font-size: 0.68rem; }
+
+  .custom-duration       { padding: 14px; }
+  .duration-inputs       { gap: 8px; }
+
+  /* ══════════════════════════════════════════════
+     TASKS
+  ══════════════════════════════════════════════ */
+  .add-task-card   { padding: 16px; margin-bottom: 16px; }
+  .add-task-card h3{ font-size: 0.85rem; }
+
+  .task-inputs               { grid-template-columns: 1fr; gap: 8px; }
+  .task-inputs .full-width   { grid-column: 1; }
+
+  .filter-bar { gap: 5px; }
+  .filter-btn { font-size: 0.72rem; padding: 5px 8px; border-radius: 15px; }
+
+  .task-item    { padding: 12px 14px; gap: 10px; }
+  .task-title   { font-size: 0.88rem; }
+  .task-checkbox{ width: 20px; height: 20px; }
+
+  .priority-badge { font-size: 0.65rem; padding: 2px 8px; }
+  .due-date       { font-size: 0.68rem; }
+
+  /* ══════════════════════════════════════════════
+     CALENDAR
+  ══════════════════════════════════════════════ */
+  .calendar-layout {
+    grid-template-columns: 1fr;
+    gap                  : 14px;
+  }
+
+  .calendar-header  { padding: 14px 16px; }
+  .calendar-header h2{ font-size: 1rem; }
+  .cal-nav-btn      { width: 30px; height: 30px; font-size: 0.85rem; }
+
+  .days-grid  { gap: 3px; padding: 8px 10px; }
+  .day-cell   { font-size: 0.78rem; border-radius: 8px; }
+
+  .events-header { padding: 14px 16px; }
+  .events-header h3{ font-size: 0.88rem; }
+
+  .add-event-form { padding: 12px 14px; gap: 8px; }
+  .events-list    { padding: 10px; max-height: 240px; }
+  .event-item     { padding: 8px 10px; }
+  .event-title    { font-size: 0.82rem; }
+
+  /* ══════════════════════════════════════════════
+     GOALS
+  ══════════════════════════════════════════════ */
+  .goals-layout {
+    grid-template-columns: 1fr;
+    gap                  : 14px;
+  }
+
+  .add-goal-card { position: static; padding: 16px; }
+  .add-goal-form { gap: 10px; }
+
+  .goals-stats             { gap: 8px; margin-bottom: 16px; }
+  .goal-stat               { padding: 12px 8px; }
+  .goal-stat-value         { font-size: 1.2rem; }
+  .goal-stat-label         { font-size: 0.68rem; }
+
+  .goal-card    { padding: 16px; }
+  .goal-title   { font-size: 0.9rem; }
+  .goal-controls{ gap: 8px; flex-wrap: wrap; }
+  .progress-input{ width: 70px; }
+
+  /* ══════════════════════════════════════════════
+     ANALYTICS
+  ══════════════════════════════════════════════ */
+  .streak-banner {
+    padding      : 14px 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+  .streak-info h3   { font-size: 0.9rem; }
+  .streak-count     { font-size: 1.8rem; }
+
+  .overview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap                  : 10px;
+    margin-bottom        : 16px;
+  }
+  .overview-card  { padding: 14px; }
+  .overview-value { font-size: 1.4rem; }
+  .overview-label { font-size: 0.72rem; }
+  .overview-icon  { font-size: 1.2rem; }
+
+  .charts-grid  { grid-template-columns: 1fr; gap: 14px; margin-bottom: 14px; }
+  .bottom-grid  { grid-template-columns: 1fr; gap: 14px; }
+
+  .chart-card   { padding: 16px; }
+  .chart-title  { font-size: 0.85rem; }
+  .chart-subtitle{ font-size: 0.72rem; }
+
+  .subject-name { width: 65px; font-size: 0.75rem; }
+  .subject-pct  { font-size: 0.72rem; }
+
+  .heatmap-grid  { gap: 3px; }
+  .heatmap-label { font-size: 0.58rem; }
+
+  /* ══════════════════════════════════════════════
+     NOTES
+  ══════════════════════════════════════════════ */
+  .notes-layout {
+    grid-template-columns: 1fr;
+    gap                  : 14px;
+  }
+
+  .notes-sidebar         { position: static; max-height: 200px; }
+  .notes-list-sidebar    { max-height: 140px; }
+  .note-list-title       { font-size: 0.82rem; }
+  .note-list-preview     { font-size: 0.72rem; }
+
+  .editor-toolbar   { padding: 10px 14px; gap: 6px; flex-wrap: wrap; }
+  .toolbar-actions  { gap: 5px; flex-wrap: wrap; }
+  .toolbar-btn      { font-size: 0.7rem; padding: 6px 8px; }
+
+  .note-title-input   { font-size: 1.1rem; padding: 14px 16px 0; }
+  .note-content-input { font-size: 0.88rem; padding: 12px 16px; min-height: 200px; }
+
+  .ai-panel         { padding: 14px 16px; }
+  .ai-result-section{ padding: 12px; }
+  .keyword-tag      { font-size: 0.68rem; }
+
+  /* ══════════════════════════════════════════════
+     FLASHCARDS
+  ══════════════════════════════════════════════ */
+  .mode-tabs  { gap: 4px; padding: 4px; }
+  .mode-tab   { font-size: 0.75rem; padding: 8px 4px; }
+
+  .decks-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap                  : 10px;
+  }
+  .deck-card   { padding: 14px 10px; }
+  .deck-icon   { font-size: 1.6rem; }
+  .deck-title  { font-size: 0.82rem; }
+  .deck-meta   { font-size: 0.68rem; }
+
+  .flashcard-scene   { height: 220px; }
+  .flashcard-front,
+  .flashcard-back    { padding: 24px 20px; }
+  .card-question     { font-size: 1rem; }
+  .card-answer       { font-size: 0.9rem; }
+  .card-label        { font-size: 0.65rem; }
+  .card-hint         { font-size: 0.72rem; margin-top: 12px; }
+
+  .card-nav          { gap: 10px; }
+  .nav-btn           { width: 40px; height: 40px; font-size: 1rem; }
+  .flip-btn          { padding: 10px 18px; font-size: 0.85rem; }
+
+  .quiz-question { font-size: 1rem; margin-bottom: 20px; }
+  .quiz-option   { padding: 11px 14px; font-size: 0.85rem; }
+  .result-score  { font-size: 2rem; }
+
+  /* ══════════════════════════════════════════════
+     EMOTION DETECTION
+  ══════════════════════════════════════════════ */
+  .emotion-layout {
+    grid-template-columns: 1fr;
+    gap                  : 14px;
+  }
+
+  .webcam-header { padding: 12px 14px; }
+  .webcam-title  { font-size: 0.85rem; }
+  .focus-ring-card{ padding: 16px; }
+  .ring-wrap      { width: 110px; height: 110px; }
+  .ring-svg       { width: 110px; height: 110px; }
+  .ring-number    { font-size: 1.4rem; }
+  .session-stats  { gap: 8px; }
+  .stat-box-value { font-size: 1.1rem; }
+  .stat-box-label { font-size: 0.68rem; }
+
+  /* ══════════════════════════════════════════════
+     FOCUS MODE
+  ══════════════════════════════════════════════ */
+  .focus-topbar  { padding: 0 14px; }
+  .focus-logo    { font-size: 0.78rem; }
+  .focus-exit-btn{ font-size: 0.75rem; padding: 5px 12px; }
+
+  .focus-main {
+    grid-template-columns: 1fr;
+    overflow-y           : auto;
+  }
+
+  .focus-center  { padding: 16px; }
+  .focus-message { font-size: 0.62rem; margin-bottom: 16px; }
+
+  .focus-timer-wrap { width: 200px; height: 200px; margin-bottom: 20px; }
+  .focus-timer-svg  { width: 200px; height: 200px; }
+  .focus-time       { font-size: 2.6rem; }
+  .focus-mode-label { font-size: 0.6rem; }
+
+  .focus-controls { gap: 12px; margin-bottom: 18px; }
+  .focus-ctrl-btn { width: 44px; height: 44px; font-size: 1rem; }
+  .focus-ctrl-primary { width: 58px; height: 58px; font-size: 1.5rem; }
+
+  .focus-task    { padding: 12px 16px; }
+  .focus-task-text{ font-size: 0.85rem; }
+
+  .focus-right {
+    border-left  : none;
+    border-top   : 1px solid rgba(255,255,255,0.05);
+    padding      : 16px;
+    gap          : 16px;
+  }
+
+  .sounds-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap                  : 6px;
+  }
+  .sound-btn    { padding: 9px 6px; font-size: 0.75rem; }
+  .focus-modes  { gap: 4px; }
+  .focus-mode-btn{ font-size: 0.72rem; padding: 7px 4px; }
+  .focus-stats  { gap: 8px; }
+  .focus-stat   { padding: 10px; }
+  .focus-stat-val{ font-size: 1rem; }
+  .focus-quote  { font-size: 0.6rem; }
+
+  /* ══════════════════════════════════════════════
+     AUTH PAGES
+  ══════════════════════════════════════════════ */
+  .auth-card    { padding: 28px 20px; margin: 12px; border-radius: 16px; }
+  .auth-logo h1 { font-size: 1.3rem; }
+  .logo-icon    { width: 48px; height: 48px; font-size: 1.4rem; }
+  .auth-submit  { padding: 12px; }
+
+  /* ══════════════════════════════════════════════
+     LANDING PAGE
+  ══════════════════════════════════════════════ */
+  .landing-nav  { padding: 14px 16px; }
+  .nav-logo     { font-size: 0.9rem; }
+  .nav-right    { gap: 6px; }
+  .nav-btn      { padding: 7px 14px; font-size: 0.8rem; }
+  .theme-toggle-btn{ width: 32px; height: 32px; font-size: 0.85rem; }
+
+  .hero         { padding: 28px 16px 10px; }
+  .hero-title   { font-size: 2.2rem; }
+  .hero-sub     { font-size: 0.88rem; }
+  .hero-badge   { font-size: 0.72rem; }
+
+  .cta-wrap     { flex-direction: column; align-items: center; gap: 10px; }
+  .cta-btn      { padding: 12px 28px; font-size: 0.88rem; width: 100%; justify-content: center; max-width: 280px; }
+
+  .orbital-wrap { width: 320px; height: 320px; }
+  .orbit-ring-1 { width: 160px; height: 160px; }
+  .orbit-ring-2 { width: 250px; height: 250px; }
+  .orbit-ring-3 { width: 310px; height: 310px; }
+  .orbit-container-1 { width: 160px; height: 160px; margin: -80px 0 0 -80px; }
+  .orbit-container-2 { width: 250px; height: 250px; margin: -125px 0 0 -125px; }
+  .orbit-container-3 { width: 310px; height: 310px; margin: -155px 0 0 -155px; }
+  .orbital-core { width: 90px; height: 90px; }
+  .core-emoji   { font-size: 1.6rem; }
+  .orbital-item { width: 44px; height: 44px; }
+  .item-icon    { font-size: 1.1rem; }
+  .item-label   { font-size: 0.38rem; }
+
+  .features-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .feature-card  { padding: 14px 8px; border-radius: 12px; }
+  .feature-icon  { font-size: 1.4rem; }
+  .feature-name  { font-size: 0.7rem; }
+
+  .quote-box   { padding: 20px; }
+  .quote-text  { font-size: 0.78rem; }
+  .section-title{ font-size: 1.4rem; }
+
+  /* ══════════════════════════════════════════════
+     VOICE + NOTIFICATIONS
+  ══════════════════════════════════════════════ */
+  .voice-float-btn {
+    width : 48px; height: 48px;
+    bottom: 16px; right: 16px;
+    font-size: 1.2rem;
+  }
+
+  .voice-panel {
+    bottom   : 76px;
+    right    : 8px;
+    left     : 8px;
+    width    : auto;
+  }
+
+  .notif-container {
+    top      : auto;
+    bottom   : 76px;
+    right    : 8px;
+    left     : 8px;
+    max-width: 100%;
+  }
+
+  .notif-card { padding: 12px 14px; }
+  .notif-title{ font-size: 0.82rem; }
+  .notif-body { font-size: 0.75rem; }
+
+  /* ══════════════════════════════════════════════
+     INPUTS & BUTTONS — Touch Friendly
+  ══════════════════════════════════════════════ */
+  .input-field {
+    padding  : 12px 14px;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+
+  select.input-field,
+  input[type="date"].input-field {
+    font-size: 16px; /* Prevents iOS zoom */
+  }
+
+  .btn { padding: 10px 18px; }
+
+  /* ══════════════════════════════════════════════
+     BOTTOM MOBILE NAVIGATION
+  ══════════════════════════════════════════════ */
+  .mobile-bottom-nav {
+    display        : flex !important;
+    position       : fixed;
+    bottom         : 0; left: 0; right: 0;
+    background     : var(--bg-card, #fff);
+    border-top     : 1px solid var(--border-color, #eee);
+    padding        : 8px 0 12px;
+    z-index        : 1000;
+    justify-content: space-around;
+    box-shadow     : 0 -4px 20px rgba(0,0,0,0.08);
+    backdrop-filter: blur(10px);
+  }
+
+  .mobile-nav-item {
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    gap           : 3px;
+    text-decoration: none;
+    color         : var(--text-muted, #999);
+    font-size     : 0.6rem;
+    font-weight   : 600;
+    padding       : 4px 8px;
+    border-radius : 8px;
+    transition    : all 0.2s ease;
+  }
+
+  .mobile-nav-item.active {
+    color: var(--accent-primary, #7C6FCD);
+  }
+
+  .mobile-nav-icon { font-size: 1.3rem; }
+
+  /* Add bottom padding so content isn't hidden behind nav */
+  .dashboard-main,
+  .tasks-container,
+  .notes-container,
+  .goals-container,
+  .analytics-container,
+  .flashcards-container,
+  .calendar-container,
+  .timer-container,
+  .emotion-container { padding-bottom: 80px; }
+}
+
+/* ── Very Small Phones ─────────────────────────────── */
+@media (max-width: 360px) {
+  .hero-title              { font-size: 1.9rem; }
+  .quick-actions           { grid-template-columns: repeat(3, 1fr); }
+  .stats-row               { grid-template-columns: repeat(2, 1fr); }
+  .decks-grid              { grid-template-columns: 1fr; }
+  .features-grid           { grid-template-columns: repeat(2, 1fr); }
+}

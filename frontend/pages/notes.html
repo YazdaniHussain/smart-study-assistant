@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
+  <link rel="stylesheet" href="../css/mobile.css"/>
+  <script src="../js/config.js"></script>
+  <link rel="stylesheet" href="../css/notifications.css"/>
+  <link rel="stylesheet" href="../css/voice.css"/>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#7C6FCD"/>
+<link rel="apple-touch-icon" href="/assets/icons/icon-192.jpg"/>
+
   <title>StudyMind — Notes</title>
   <link rel="stylesheet" href="../css/main.css"/>
   <link rel="stylesheet" href="../css/dashboard.css"/>
@@ -77,28 +86,49 @@
         <div id="editorContent" style="display:none;">
           <div class="editor-toolbar">
             <div style="font-size:0.78rem;color:var(--text-muted)" id="autoSaveStatus">
-              ✏️ Editing
+            ✏️ Editing
             </div>
             <div class="toolbar-actions">
-              <button class="toolbar-btn ai-btn" id="aiSummarizeBtn">
-                ✨ AI Summary
-              </button>
-              <button class="toolbar-btn ai-btn" id="aiKeywordsBtn">
-                🔑 Keywords
-              </button>
-              <button class="toolbar-btn ai-btn" id="aiFlashcardsBtn">
-                🃏 Flashcards
-              </button>
-              <button class="toolbar-btn save-btn" id="saveNoteBtn">
-                💾 Save
-              </button>
-              <button class="toolbar-btn" id="deleteNoteBtn"
-                      style="color:var(--accent-danger);border-color:var(--accent-danger);">
-                🗑 Delete
-              </button>
-            </div>
-          </div>
 
+              <button class="toolbar-btn ai-btn" id="genFlashcardsBtn"
+        style="background:var(--accent-coral);border-color:var(--accent-coral);">
+  🃏 Generate Flashcards
+</button>
+
+            <!-- File Upload Button -->
+            <label class="toolbar-btn upload-btn" title="Upload PDF or Word file">
+  📎 Upload File
+  <input type="file" id="fileUploadInput"
+         accept=".pdf,.doc,.docx,.txt"
+         style="display:none;" />
+</label>
+<button class="toolbar-btn analyze-btn" id="analyzeDocBtn"
+        style="display:none;">
+  🔍 Analyze Document
+</button>
+
+    <button class="toolbar-btn ai-btn" id="aiSummarizeBtn">✨ AI Summary</button>
+    <button class="toolbar-btn ai-btn" id="aiKeywordsBtn">🔑 Keywords</button>
+    <button class="toolbar-btn ai-btn" id="aiFlashcardsBtn">🃏 Flashcards</button>
+    <button class="toolbar-btn save-btn" id="saveNoteBtn">💾 Save</button>
+    <button class="toolbar-btn" id="deleteNoteBtn"
+            style="color:var(--accent-danger);border-color:var(--accent-danger);">
+      🗑 Delete
+    </button>
+  </div>
+</div>
+
+<!-- File Upload Status -->
+<div id="uploadStatus" style="display:none;
+  padding:10px 24px;
+  background:var(--card-amber);
+  border-bottom:1px solid var(--border-color);
+  font-size:0.85rem;
+  color:var(--text-secondary);
+  display:flex;
+  align-items:center;
+  gap:8px;">
+</div>
           <input type="text" class="note-title-input" id="noteTitleInput"
                  placeholder="Note title..." />
 
@@ -118,5 +148,9 @@
 
   <script src="../js/theme.js"></script>
   <script src="../js/notes.js"></script>
+  <script src="../js/voice.js"></script>
+  <script src="/socketio/socket.io.min.js"></script>
+<script src="../js/notifications.js"></script>
+<script src="../js/pwa.js"></script>
 </body>
 </html> 

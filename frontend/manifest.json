@@ -1,0 +1,24 @@
+{
+  "name": "StudyMind — AI Study Assistant",
+  "short_name": "StudyMind",
+  "description": "AI-Powered Smart Study Assistant with emotion tracking, voice control and AI notes",
+  "start_url": "/pages/index.html",
+  "display": "standalone",
+  "background_color": "#12111C",
+  "theme_color": "#7C6FCD",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

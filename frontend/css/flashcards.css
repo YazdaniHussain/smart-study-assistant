@@ -1,0 +1,553 @@
+@import url('./variables.css');
+
+.flashcards-body {
+  min-height : 100vh;
+  background : var(--bg-primary);
+  font-family: var(--font-main);
+}
+
+.flashcards-container {
+  max-width: 900px;
+  margin   : 0 auto;
+  padding  : 32px 24px;
+}
+
+/* ── Mode Tabs ─────────────────────────────────────── */
+.mode-tabs {
+  display      : flex;
+  background   : var(--bg-card);
+  border-radius: var(--radius-lg);
+  border       : 1px solid var(--border-color);
+  padding      : 6px;
+  gap          : 6px;
+  margin-bottom: 28px;
+  box-shadow   : var(--shadow-sm);
+}
+
+.mode-tab {
+  flex           : 1;
+  padding        : 10px;
+  border         : none;
+  border-radius  : var(--radius-md);
+  background     : transparent;
+  font-family    : var(--font-main);
+  font-size      : 0.9rem;
+  font-weight    : 500;
+  color          : var(--text-muted);
+  cursor         : pointer;
+  transition     : var(--transition);
+}
+
+.mode-tab.active {
+  background: var(--accent-coral);
+  color     : white;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Flashcard ─────────────────────────────────────── */
+.flashcard-scene {
+  width      : 100%;
+  height     : 320px;
+  perspective: 1000px;
+  margin-bottom: 24px;
+  cursor     : pointer;
+}
+
+.flashcard-inner {
+  width           : 100%;
+  height          : 100%;
+  position        : relative;
+  transform-style : preserve-3d;
+  transition      : transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flashcard-inner.flipped { transform: rotateY(180deg); }
+
+.flashcard-front,
+.flashcard-back {
+  position        : absolute;
+  width           : 100%;
+  height          : 100%;
+  backface-visibility: hidden;
+  border-radius   : var(--radius-lg);
+  display         : flex;
+  flex-direction  : column;
+  align-items     : center;
+  justify-content : center;
+  padding         : 40px;
+  text-align      : center;
+  box-shadow      : var(--shadow-lg);
+}
+
+.flashcard-front {
+  background: linear-gradient(135deg, var(--accent-coral), #FF6B6B);
+  color     : white;
+}
+
+.flashcard-back {
+  background : var(--bg-card);
+  border     : 2px solid var(--accent-coral);
+  transform  : rotateY(180deg);
+}
+
+.card-label {
+  font-size     : 0.75rem;
+  font-weight   : 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity       : 0.8;
+  margin-bottom : 16px;
+}
+
+.flashcard-front .card-label { color: rgba(255,255,255,0.8); }
+.flashcard-back  .card-label { color: var(--accent-coral); }
+
+.card-question {
+  font-size  : 1.3rem;
+  font-weight: 700;
+  color      : white;
+  line-height: 1.4;
+}
+
+.card-answer {
+  font-size  : 1.1rem;
+  color      : var(--text-primary);
+  line-height: 1.6;
+}
+
+.card-hint {
+  margin-top: 20px;
+  font-size : 0.8rem;
+  opacity   : 0.6;
+}
+
+.flashcard-front .card-hint { color: white; }
+.flashcard-back  .card-hint { color: var(--text-muted); }
+
+/* ── Card Counter ──────────────────────────────────── */
+.card-counter {
+  text-align   : center;
+  font-family  : var(--font-mono);
+  font-size    : 0.9rem;
+  color        : var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* ── Navigation ────────────────────────────────────── */
+.card-nav {
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  gap            : 16px;
+  margin-bottom  : 28px;
+}
+
+.nav-btn {
+  width          : 48px;
+  height         : 48px;
+  border-radius  : 50%;
+  border         : 1.5px solid var(--border-color);
+  background     : var(--bg-card);
+  font-size      : 1.2rem;
+  cursor         : pointer;
+  transition     : var(--transition);
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  color          : var(--text-secondary);
+  box-shadow     : var(--shadow-sm);
+}
+
+.nav-btn:hover {
+  background: var(--accent-coral);
+  color     : white;
+  border-color: var(--accent-coral);
+  transform : translateY(-2px);
+}
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor : not-allowed;
+}
+
+.flip-btn {
+  padding      : 12px 32px;
+  background   : var(--accent-coral);
+  color        : white;
+  border       : none;
+  border-radius: var(--radius-md);
+  font-family  : var(--font-main);
+  font-size    : 0.95rem;
+  font-weight  : 600;
+  cursor       : pointer;
+  transition   : var(--transition);
+  box-shadow   : var(--shadow-sm);
+}
+
+.flip-btn:hover {
+  opacity  : 0.9;
+  transform: translateY(-2px);
+}
+
+/* ── Progress Bar ──────────────────────────────────── */
+.deck-progress {
+  background   : var(--bg-secondary);
+  border-radius: 10px;
+  height       : 8px;
+  margin-bottom: 28px;
+  overflow     : hidden;
+}
+
+.deck-progress-fill {
+  height       : 100%;
+  border-radius: 10px;
+  background   : linear-gradient(90deg, var(--accent-coral), #FF8E53);
+  transition   : width 0.4s ease;
+}
+
+/* ── Add Card Form ─────────────────────────────────── */
+.add-card-section {
+  background   : var(--bg-card);
+  border-radius: var(--radius-lg);
+  border       : 1px solid var(--border-color);
+  padding      : 24px;
+  margin-bottom: 24px;
+  box-shadow   : var(--shadow-sm);
+}
+
+.add-card-section h3 {
+  font-size    : 0.95rem;
+  font-weight  : 700;
+  color        : var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.card-inputs {
+  display       : flex;
+  flex-direction: column;
+  gap           : 12px;
+}
+
+.add-card-btn {
+  padding      : 11px;
+  background   : var(--accent-coral);
+  color        : white;
+  border       : none;
+  border-radius: var(--radius-sm);
+  font-family  : var(--font-main);
+  font-size    : 0.9rem;
+  font-weight  : 600;
+  cursor       : pointer;
+  transition   : var(--transition);
+  margin-top   : 4px;
+}
+
+.add-card-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ── Card List ─────────────────────────────────────── */
+.cards-list {
+  display       : flex;
+  flex-direction: column;
+  gap           : 10px;
+}
+
+.card-list-item {
+  background   : var(--bg-card);
+  border-radius: var(--radius-md);
+  border       : 1px solid var(--border-color);
+  padding      : 16px 20px;
+  display      : flex;
+  align-items  : center;
+  gap          : 14px;
+  transition   : var(--transition);
+}
+
+.card-list-item:hover { box-shadow: var(--shadow-md); }
+
+.card-list-q {
+  flex      : 1;
+  font-size : 0.9rem;
+  font-weight: 500;
+  color     : var(--text-primary);
+}
+
+.card-list-a {
+  font-size : 0.82rem;
+  color     : var(--text-muted);
+  margin-top: 4px;
+}
+
+.delete-card-btn {
+  width          : 30px;
+  height         : 30px;
+  border-radius  : 8px;
+  border         : 1px solid var(--border-color);
+  background     : transparent;
+  cursor         : pointer;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  font-size      : 0.85rem;
+  color          : var(--text-muted);
+  transition     : var(--transition);
+}
+
+.delete-card-btn:hover { background: #FFE0E0; color: var(--accent-danger); }
+
+/* ── Quiz Mode ─────────────────────────────────────── */
+.quiz-section {
+  background   : var(--bg-card);
+  border-radius: var(--radius-lg);
+  border       : 1px solid var(--border-color);
+  padding      : 32px;
+  box-shadow   : var(--shadow-md);
+  text-align   : center;
+}
+
+.quiz-question {
+  font-size    : 1.2rem;
+  font-weight  : 700;
+  color        : var(--text-primary);
+  margin-bottom: 28px;
+  line-height  : 1.5;
+}
+
+.quiz-options {
+  display       : flex;
+  flex-direction: column;
+  gap           : 12px;
+  margin-bottom : 20px;
+}
+
+.quiz-option {
+  padding      : 14px 20px;
+  border-radius: var(--radius-md);
+  border       : 2px solid var(--border-color);
+  background   : var(--bg-primary);
+  font-family  : var(--font-main);
+  font-size    : 0.95rem;
+  cursor       : pointer;
+  transition   : var(--transition);
+  text-align   : left;
+  color        : var(--text-primary);
+}
+
+.quiz-option:hover  { border-color: var(--accent-coral); background: var(--card-coral); }
+.quiz-option.correct { border-color: var(--accent-success); background: var(--card-mint); color: var(--accent-success); font-weight: 600; }
+.quiz-option.wrong   { border-color: var(--accent-danger);  background: var(--card-coral); color: var(--accent-danger); }
+
+.quiz-score {
+  font-family: var(--font-mono);
+  font-size  : 0.9rem;
+  color      : var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.quiz-result {
+  padding      : 20px;
+  border-radius: var(--radius-md);
+  background   : var(--card-mint);
+  border       : 1px solid var(--accent-success);
+  margin-top   : 20px;
+  display      : none;
+}
+
+.quiz-result.visible { display: block; }
+
+.result-score {
+  font-family: var(--font-mono);
+  font-size  : 2.5rem;
+  font-weight: 700;
+  color      : var(--accent-success);
+}
+
+.result-label {
+  font-size : 0.9rem;
+  color     : var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* ── Empty State ───────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding   : 60px 24px;
+  color     : var(--text-muted);
+}
+
+.empty-state .empty-icon { font-size: 3rem; margin-bottom: 12px; }
+.empty-state p { font-size: 0.9rem; }
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 600px) {
+  .flashcard-scene { height: 260px; }
+  .card-question   { font-size: 1.1rem; }
+} 
+
+/* ── Deck Grid ─────────────────────────────────────── */
+.decks-grid {
+  display              : grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap                  : 16px;
+  margin-bottom        : 24px;
+}
+
+.deck-card {
+  background   : var(--bg-card);
+  border-radius: var(--radius-md);
+  border       : 1px solid var(--border-color);
+  padding      : 20px;
+  cursor       : pointer;
+  transition   : var(--transition);
+  box-shadow   : var(--shadow-sm);
+  position     : relative;
+  animation    : fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.deck-card:hover {
+  transform   : translateY(-3px);
+  box-shadow  : var(--shadow-md);
+  border-color: var(--accent-coral);
+}
+
+.deck-icon {
+  font-size    : 2rem;
+  margin-bottom: 10px;
+}
+
+.deck-title {
+  font-size    : 0.95rem;
+  font-weight  : 700;
+  color        : var(--text-primary);
+  margin-bottom: 6px;
+  white-space  : nowrap;
+  overflow     : hidden;
+  text-overflow: ellipsis;
+}
+
+.deck-meta {
+  font-size : 0.78rem;
+  color     : var(--text-muted);
+  display   : flex;
+  align-items: center;
+  gap       : 6px;
+}
+
+.deck-source-badge {
+  padding      : 2px 8px;
+  border-radius: 20px;
+  font-size    : 0.7rem;
+  font-weight  : 600;
+}
+
+.badge-ai     { background: var(--card-lavender); color: var(--accent-primary); }
+.badge-manual { background: var(--card-mint);     color: var(--accent-mint); }
+
+.deck-delete-btn {
+  position       : absolute;
+  top            : 10px;
+  right          : 10px;
+  width          : 26px;
+  height         : 26px;
+  border-radius  : 8px;
+  border         : 1px solid var(--border-color);
+  background     : transparent;
+  cursor         : pointer;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  font-size      : 0.78rem;
+  color          : var(--text-muted);
+  transition     : var(--transition);
+  opacity        : 0;
+}
+
+.deck-card:hover .deck-delete-btn {
+  opacity: 1;
+}
+
+.deck-delete-btn:hover {
+  background: #FFE0E0;
+  color     : var(--accent-danger);
+}
+
+/* ── Back Button ───────────────────────────────────── */
+.back-btn {
+  display    : flex;
+  align-items: center;
+  gap        : 6px;
+  padding    : 8px 16px;
+  border-radius: var(--radius-sm);
+  border     : 1.5px solid var(--border-color);
+  background : var(--bg-card);
+  font-family: var(--font-main);
+  font-size  : 0.85rem;
+  font-weight: 500;
+  cursor     : pointer;
+  color      : var(--text-secondary);
+  transition : var(--transition);
+  margin-bottom: 20px;
+}
+
+.back-btn:hover {
+  background  : var(--bg-secondary);
+  border-color: var(--accent-coral);
+  color       : var(--accent-coral);
+}
+
+/* ── Deck Header ───────────────────────────────────── */
+.deck-header-info {
+  display      : flex;
+  align-items  : center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding      : 16px 20px;
+  background   : var(--bg-card);
+  border-radius: var(--radius-md);
+  border       : 1px solid var(--border-color);
+}
+
+.deck-header-title {
+  font-size  : 1.1rem;
+  font-weight: 700;
+  color      : var(--text-primary);
+}
+
+.deck-header-count {
+  font-family: var(--font-mono);
+  font-size  : 0.85rem;
+  color      : var(--text-muted);
+}
+
+/* ── New Deck Form ─────────────────────────────────── */
+.new-deck-btn {
+  width          : 100%;
+  padding        : 16px;
+  border-radius  : var(--radius-md);
+  border         : 2px dashed var(--border-color);
+  background     : transparent;
+  font-family    : var(--font-main);
+  font-size      : 0.9rem;
+  color          : var(--text-muted);
+  cursor         : pointer;
+  transition     : var(--transition);
+  margin-bottom  : 24px;
+}
+
+.new-deck-btn:hover {
+  border-color: var(--accent-coral);
+  color       : var(--accent-coral);
+  background  : var(--card-coral);
+}
+
+@media (max-width: 768px) {
+  .decks-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .decks-grid { grid-template-columns: 1fr; }
+}

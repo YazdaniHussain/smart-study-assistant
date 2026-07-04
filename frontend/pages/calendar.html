@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
+  <link rel="stylesheet" href="../css/mobile.css"/>
+  <script src="../js/config.js"></script>
+  <link rel="stylesheet" href="../css/notifications.css"/>
+  <link rel="stylesheet" href="../css/voice.css"/>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#7C6FCD"/>
+<link rel="apple-touch-icon" href="/assets/icons/icon-192.jpg"/>
+
   <title>StudyMind — Calendar</title>
   <link rel="stylesheet" href="../css/main.css"/>
   <link rel="stylesheet" href="../css/dashboard.css"/>
   <link rel="stylesheet" href="../css/calendar.css"/>
 </head>
+
 <body class="calendar-body">
 
   <!-- Navbar -->
@@ -91,5 +101,9 @@
 
   <script src="../js/theme.js"></script>
   <script src="../js/calendar.js"></script>
+  <script src="../js/voice.js"></script>
+  <script src="/socketio/socket.io.min.js"></script>
+<script src="../js/notifications.js"></script>
+<script src="../js/pwa.js"></script>
 </body>
 </html> 

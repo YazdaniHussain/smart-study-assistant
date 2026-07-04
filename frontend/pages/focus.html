@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="stylesheet" href="../css/mobile.css"/>
+  <script src="../js/config.js"></script>
+  <link rel="stylesheet" href="../css/notifications.css"/>  
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#7C6FCD"/>
+<link rel="apple-touch-icon" href="/assets/icons/icon-192.jpg"/>
+
+  <title>StudyMind — Focus Mode</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/voice.css"/>
+  <link rel="stylesheet" href="../css/focus.css"/>
+</head>
+<body class="focus-body">
+
+  <!-- Top Bar -->
+  <div class="focus-topbar">
+    <div class="focus-logo">🎓 StudyMind — Focus Mode</div>
+    <div class="focus-topbar-right">
+      <span class="focus-clock-small" id="focusClock">00:00:00</span>
+      <span style="font-size:0.75rem;color:rgba(255,255,255,0.2);">Esc to exit</span>
+      <button class="focus-exit-btn" onclick="exitFocus()">✕ Exit</button>
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <div class="focus-main">
+
+    <!-- Center — Timer -->
+    <div class="focus-center">
+      <div class="focus-message" id="focusMessage">deep work session</div>
+
+      <div class="focus-timer-wrap">
+        <svg class="focus-timer-svg" viewBox="0 0 260 260">
+          <circle class="focus-timer-track" cx="130" cy="130" r="113"/>
+          <circle class="focus-timer-ring"  id="focusRing" cx="130" cy="130" r="113"/>
+        </svg>
+        <div class="focus-timer-inner">
+          <div class="focus-time"       id="focusTimerDisplay">25:00</div>
+          <div class="focus-mode-label" id="focusTimerLabel">Pomodoro</div>
+        </div>
+      </div>
+
+      <div class="focus-controls">
+        <button class="focus-ctrl-btn" id="focusResetBtn" title="Reset">↺</button>
+        <button class="focus-ctrl-btn focus-ctrl-primary" id="focusStartBtn">▶</button>
+        <button class="focus-ctrl-btn" id="focusSkipBtn" title="Skip">⏭</button>
+      </div>
+
+      <div class="focus-task">
+        <div class="focus-task-label">Current Task</div>
+        <div class="focus-task-text" id="focusTaskText">
+          Loading your tasks...
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="focus-right">
+
+      <!-- Mode Selector -->
+      <div>
+        <div class="focus-section-label">Session Mode</div>
+        <div class="focus-modes">
+          <button class="focus-mode-btn active" data-mode="pomodoro">🍅 25m</button>
+          <button class="focus-mode-btn" data-mode="short">☕ 5m</button>
+          <button class="focus-mode-btn" data-mode="long">🌿 15m</button>
+        </div>
+      </div>
+
+      <!-- Session Stats -->
+      <div>
+        <div class="focus-section-label">Today's Stats</div>
+        <div class="focus-stats">
+          <div class="focus-stat">
+            <div class="focus-stat-val" id="statSessions">0</div>
+            <div class="focus-stat-label">Sessions</div>
+          </div>
+          <div class="focus-stat">
+            <div class="focus-stat-val" id="statMinutes">0m</div>
+            <div class="focus-stat-label">Focused</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ambient Sounds -->
+      <div>
+        <div class="focus-section-label">🎵 Ambient Sounds</div>
+        <div class="sounds-grid">
+          <button class="sound-btn active" data-sound="none">🔇 None</button>
+          <button class="sound-btn" data-sound="rain">🌧️ Rain</button>
+          <button class="sound-btn" data-sound="forest">🌿 Forest</button>
+          <button class="sound-btn" data-sound="coffee">☕ Café</button>
+          <button class="sound-btn" data-sound="lofi">🎵 Lo-fi</button>
+          <button class="sound-btn" data-sound="waves">🌊 Waves</button>
+        </div>
+      </div>
+
+      <!-- Quote -->
+      <div>
+        <div class="focus-section-label">Today's Motivation</div>
+        <div class="focus-quote" id="focusQuote">
+          "the secret of getting ahead is getting started."
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Session Complete -->
+  <div class="session-complete" id="sessionComplete">
+    <div class="complete-icon">🏆</div>
+    <div class="complete-title">Session Complete!</div>
+    <div class="complete-sub" id="completeSubText">Great work! Take a break.</div>
+    <button class="complete-btn" onclick="startBreak()">Start Break ☕</button>
+    <button class="complete-btn ghost"
+      onclick="document.getElementById('sessionComplete').classList.remove('show')">
+      Keep Working
+    </button>
+  </div>
+
+  <script src="../js/voice.js"></script>
+  <script src="../js/focus.js"></script>
+  <script src="/socketio/socket.io.min.js"></script>
+<script src="../js/notifications.js"></script>
+<script src="../js/pwa.js"></script>
+</body>
+</html>

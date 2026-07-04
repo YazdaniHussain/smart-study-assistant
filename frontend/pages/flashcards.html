@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <link rel="stylesheet" href="../css/mobile.css"/>
+  <script src="../js/config.js"></script>
+  <link rel="stylesheet" href="../css/notifications.css"/>
+  <link rel="stylesheet" href="../css/voice.css"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#7C6FCD"/>
+<link rel="apple-touch-icon" href="/assets/icons/icon-192.jpg"/>
+
+  <title>StudyMind — Flashcards</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/dashboard.css"/>
+  <link rel="stylesheet" href="../css/flashcards.css"/>
+</head>
+<body class="flashcards-body">
+
+  <nav class="navbar">
+    <div class="nav-logo"><span>🎓</span> StudyMind</div>
+    <div class="nav-right">
+      <div class="theme-picker-wrap">
+        <button class="theme-picker-btn" id="themePickerBtn"></button>
+        <div class="theme-picker-panel" id="themePickerPanel">
+          <h4>Background Color</h4>
+          <div class="color-swatches">
+            <div class="color-swatch swatch-lavender" data-bg="lavender"></div>
+            <div class="color-swatch swatch-peach"    data-bg="peach"></div>
+            <div class="color-swatch swatch-mint"     data-bg="mint"></div>
+            <div class="color-swatch swatch-sky"      data-bg="sky"></div>
+            <div class="color-swatch swatch-rose"     data-bg="rose"></div>
+            <div class="color-swatch swatch-amber"    data-bg="amber"></div>
+            <div class="color-swatch swatch-sage"     data-bg="sage"></div>
+            <div class="color-swatch swatch-coral"    data-bg="coral"></div>
+          </div>
+        </div>
+      </div>
+      <a href="./dashboard.html" class="btn btn-ghost" style="font-size:0.85rem;">← Dashboard</a>
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <div class="nav-user">
+        <div class="nav-avatar" id="navAvatar">S</div>
+        <span id="navUsername">Student</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="flashcards-container">
+
+    <!-- ── DECKS VIEW ── -->
+    <div id="decksView">
+      <div class="page-header">
+        <h1>🃏 My Flashcard Decks</h1>
+        <p>AI-generated and manual flashcard collections</p>
+      </div>
+
+      <!-- New Manual Deck -->
+      <button class="new-deck-btn" id="newDeckBtn">
+        ➕ Create Manual Deck
+      </button>
+
+      <!-- New Deck Form (hidden) -->
+      <div id="newDeckForm" style="display:none;" class="add-card-section">
+        <h3>📁 New Manual Deck</h3>
+        <div class="card-inputs">
+          <input type="text" id="newDeckName" class="input-field"
+                 placeholder="Deck name (e.g. Biology Chapter 1)" />
+          <button class="add-card-btn" id="createDeckBtn">Create Deck</button>
+        </div>
+      </div>
+
+      <!-- Decks Grid -->
+      <div class="decks-grid" id="decksGrid">
+        <div class="empty-state" style="grid-column:1/-1;">
+          <div class="empty-icon">🃏</div>
+          <p>No flashcard decks yet!</p>
+          <p style="margin-top:8px;font-size:0.82rem;">
+            Go to <a href="./notes.html" style="color:var(--accent-coral);">Smart Notes</a>
+            and click 🃏 Generate Flashcards
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DECK DETAIL VIEW ── -->
+    <div id="deckView" style="display:none;">
+
+      <button class="back-btn" id="backBtn">← All Decks</button>
+
+      <div class="deck-header-info">
+        <div>
+          <div class="deck-header-title" id="deckViewTitle">Deck Name</div>
+          <div class="deck-header-count" id="deckViewCount">0 cards</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="flip-btn" id="studyDeckBtn"
+                  style="padding:8px 20px;font-size:0.85rem;">
+            📖 Study
+          </button>
+          <button class="flip-btn" id="quizDeckBtn"
+                  style="padding:8px 20px;font-size:0.85rem;background:var(--accent-primary);">
+            🧠 Quiz
+          </button>
+        </div>
+      </div>
+
+      <!-- Mode Tabs -->
+      <div class="mode-tabs" id="deckModeTabs" style="display:none;">
+        <button class="mode-tab active" data-mode="study">📖 Study Cards</button>
+        <button class="mode-tab" data-mode="manage">✏️ Manage Cards</button>
+        <button class="mode-tab" data-mode="quiz">🧠 Take Quiz</button>
+      </div>
+
+      <!-- Study Mode -->
+      <div id="studyMode" style="display:none;">
+        <div class="deck-progress">
+          <div class="deck-progress-fill" id="deckProgressFill" style="width:0%"></div>
+        </div>
+        <div class="card-counter" id="cardCounter">0 cards</div>
+        <div class="flashcard-scene" onclick="flipCard()">
+          <div class="flashcard-inner" id="flashcardInner">
+            <div class="flashcard-front">
+              <div class="card-label">Question</div>
+              <div class="card-question" id="cardQuestion">Loading...</div>
+              <div class="card-hint">Click to reveal answer</div>
+            </div>
+            <div class="flashcard-back">
+              <div class="card-label">Answer</div>
+              <div class="card-answer" id="cardAnswer">—</div>
+              <div class="card-hint">Click to flip back</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-nav">
+          <button class="nav-btn" id="prevBtn" onclick="prevCard()">‹</button>
+          <button class="flip-btn" onclick="flipCard()">🔄 Flip Card</button>
+          <button class="nav-btn" id="nextBtn" onclick="nextCard()">›</button>
+        </div>
+      </div>
+
+      <!-- Manage Mode -->
+      <div id="manageMode" style="display:none;">
+        <div class="add-card-section">
+          <h3>➕ Add Card to This Deck</h3>
+          <div class="card-inputs">
+            <input type="text" id="cardQ" class="input-field" placeholder="Question..." />
+            <textarea id="cardA" class="input-field"
+                      style="resize:vertical;min-height:80px;padding:12px 16px;"
+                      placeholder="Answer..."></textarea>
+            <button class="add-card-btn" id="addCardBtn">+ Add Card</button>
+          </div>
+        </div>
+        <div class="cards-list" id="cardsList"></div>
+      </div>
+
+      <!-- Quiz Mode -->
+      <div id="quizMode" style="display:none;">
+        <div class="quiz-section">
+          <div id="quizStart">
+            <div style="font-size:3rem;margin-bottom:16px;">🧠</div>
+            <h3 style="color:var(--text-primary);margin-bottom:8px;">Ready to Test Yourself?</h3>
+            <p style="color:var(--text-muted);margin-bottom:24px;">
+              Multiple choice quiz from this deck!
+            </p>
+            <button class="flip-btn" onclick="startQuiz()"
+                    style="background:var(--accent-primary);">
+              Start Quiz 🚀
+            </button>
+          </div>
+          <div id="quizPlay" style="display:none;">
+            <div class="quiz-score" id="quizScore">Question 1</div>
+            <div class="quiz-question" id="quizQuestion">Loading...</div>
+            <div class="quiz-options" id="quizOptions"></div>
+          </div>
+          <div class="quiz-result" id="quizResult">
+            <div class="result-score" id="resultScore">0/0</div>
+            <div class="result-label">Correct Answers</div>
+            <div id="resultMsg" style="margin-top:12px;font-size:0.9rem;color:var(--text-secondary);"></div>
+            <button class="flip-btn" onclick="resetQuiz()"
+                    style="margin-top:20px;background:var(--accent-primary);">
+              Try Again 🔄
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/flashcards.js"></script>
+  <script src="../js/voice.js"></script>
+  <script src="/socketio/socket.io.min.js"></script>
+<script src="../js/notifications.js"></script>
+<script src="../js/pwa.js"></script>
+</body>
+</html>

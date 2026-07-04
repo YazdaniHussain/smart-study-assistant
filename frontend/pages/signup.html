@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#7C6FCD"/>
+<link rel="apple-touch-icon" href="/assets/icons/icon-192.jpg"/>
+
+  <title>StudyMind — Sign Up</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/auth.css"/>
+  <link rel="stylesheet" href="../css/mobile.css"/>
+</head>
+<body class="auth-page">
+
+  <div class="auth-theme-toggle">
+    <button class="theme-toggle" id="themeToggle">🌙</button>
+  </div>
+
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="logo-icon">🎓</div>
+      <h1>Create Account</h1>
+      <p>Start your AI-powered study journey</p>
+    </div>
+
+    <div class="auth-form">
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input type="text" id="signupUsername" class="input-field"
+               placeholder="Choose a username"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" id="signupEmail" class="input-field"
+               placeholder="Enter your email"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" id="signupPassword" class="input-field"
+               placeholder="Create a strong password"/>
+      </div>
+      <button class="auth-submit" id="signupBtn">Create Account →</button>
+      <div class="auth-message" id="signupMessage"></div>
+    </div>
+
+    <p style="text-align:center;margin-top:16px;font-size:0.85rem;color:var(--text-muted);">
+      Already have an account?
+      <a href="/pages/login.html" style="color:var(--accent-primary);font-weight:600;">Login</a>
+    </p>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script>
+    document.getElementById('signupBtn').addEventListener('click', async () => {
+      const username = document.getElementById('signupUsername').value.trim();
+      const email    = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value.trim();
+      const msg      = document.getElementById('signupMessage');
+
+      if (!username || !email || !password) {
+        msg.className   = 'auth-message error';
+        msg.textContent = 'Please fill in all fields';
+        return;
+      }
+
+      try {
+        const res  = await fetch('/api/auth/signup', {
+          method : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body   : JSON.stringify({ username, email, password })
+        });
+        const data = await res.json();
+
+        if (res.ok) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user',  JSON.stringify(data.user));
+          msg.className   = 'auth-message success';
+          msg.textContent = '✅ Account created! Redirecting...';
+          setTimeout(() => window.location.href = '/pages/dashboard.html', 1200);
+        } else {
+          msg.className   = 'auth-message error';
+          msg.textContent = data.message;
+        }
+      } catch {
+        msg.className   = 'auth-message error';
+        msg.textContent = 'Server error. Is the backend running?';
+      }
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('signupBtn').click();
+    });
+  </script>
+  <script src="../js/pwa.js"></script>
+</body>
+</html>

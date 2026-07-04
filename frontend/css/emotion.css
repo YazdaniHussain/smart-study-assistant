@@ -1,0 +1,347 @@
+@import url('./variables.css');
+
+.emotion-body {
+  min-height : 100vh;
+  background : var(--bg-primary);
+  font-family: var(--font-main);
+}
+
+.emotion-container {
+  max-width: 1100px;
+  margin   : 0 auto;
+  padding  : 32px 24px;
+}
+
+/* ── Layout ────────────────────────────────────────── */
+.emotion-layout {
+  display              : grid;
+  grid-template-columns: 1fr 380px;
+  gap                  : 24px;
+  align-items          : start;
+}
+
+/* ── Webcam Card ───────────────────────────────────── */
+.webcam-card {
+  background   : var(--bg-card);
+  border-radius: var(--radius-lg);
+  border       : 1px solid var(--border-color);
+  box-shadow   : var(--shadow-md);
+  overflow     : hidden;
+}
+
+.webcam-header {
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+  padding        : 16px 20px;
+  border-bottom  : 1px solid var(--border-color);
+  background     : var(--bg-secondary);
+}
+
+.webcam-title {
+  font-size  : 0.95rem;
+  font-weight: 700;
+  color      : var(--text-primary);
+  display    : flex;
+  align-items: center;
+  gap        : 8px;
+}
+
+.status-dot {
+  width        : 10px;
+  height       : 10px;
+  border-radius: 50%;
+  background   : var(--accent-danger);
+  transition   : var(--transition);
+}
+
+.status-dot.active {
+  background: var(--accent-success);
+  animation : blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* ── Video Container ───────────────────────────────── */
+.video-wrap {
+  position  : relative;
+  background: #0A0A0A;
+  aspect-ratio: 4/3;
+  overflow  : hidden;
+}
+
+#webcamVideo {
+  width    : 100%;
+  height   : 100%;
+  object-fit: cover;
+  transform : scaleX(-1);
+}
+
+#faceCanvas {
+  position : absolute;
+  top      : 0;
+  left     : 0;
+  width    : 100%;
+  height   : 100%;
+  transform: scaleX(-1);
+}
+
+.video-overlay {
+  position       : absolute;
+  bottom         : 0;
+  left           : 0;
+  right          : 0;
+  padding        : 16px;
+  background     : linear-gradient(transparent, rgba(0,0,0,0.7));
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+}
+
+.current-emotion {
+  font-size  : 1.1rem;
+  font-weight: 700;
+  color      : white;
+  display    : flex;
+  align-items: center;
+  gap        : 8px;
+}
+
+.emotion-emoji { font-size: 1.6rem; }
+
+.focus-score-badge {
+  font-family  : var(--font-mono);
+  font-size    : 0.85rem;
+  font-weight  : 600;
+  padding      : 4px 12px;
+  border-radius: 20px;
+  background   : rgba(255,255,255,0.2);
+  color        : white;
+  backdrop-filter: blur(4px);
+}
+
+/* ── Webcam Controls ───────────────────────────────── */
+.webcam-controls {
+  display        : flex;
+  gap            : 10px;
+  padding        : 16px 20px;
+  justify-content: center;
+  border-top     : 1px solid var(--border-color);
+}
+
+.cam-btn {
+  padding      : 10px 24px;
+  border-radius: var(--radius-sm);
+  border       : none;
+  font-family  : var(--font-main);
+  font-size    : 0.9rem;
+  font-weight  : 600;
+  cursor       : pointer;
+  transition   : var(--transition);
+}
+
+.cam-btn-start {
+  background: var(--accent-success);
+  color     : white;
+}
+
+.cam-btn-stop {
+  background: var(--accent-danger);
+  color     : white;
+  display   : none;
+}
+
+.cam-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ── Stats Panel ───────────────────────────────────── */
+.stats-panel {
+  display       : flex;
+  flex-direction: column;
+  gap           : 16px;
+}
+
+/* ── Focus Score Ring ──────────────────────────────── */
+.focus-ring-card {
+  background   : var(--bg-card);
+  border-radius: var(--radius-lg);
+  border       : 1px solid var(--border-color);
+  padding      : 24px;
+  text-align   : center;
+  box-shadow   : var(--shadow-sm);
+}
+
+.focus-ring-card h3 {
+  font-size    : 0.88rem;
+  font-weight  : 700;
+  color        : var(--text-secondary);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.ring-wrap {
+  position: relative;
+  width   : 140px;
+  height  : 140px;
+  margin  : 0 auto 12px;
+}
+
+.ring-svg {
+  width    : 140px;
+  height   : 140px;
+  transform: rotate(-90deg);
+}
+
+.ring-track {
+  fill        : none;
+  stroke      : var(--border-color);
+  stroke-width: 10;
+}
+
+.ring-fill {
+  fill            : none;
+  stroke          : var(--accent-success);
+  stroke-width    : 10;
+  stroke-linecap  : round;
+  stroke-dasharray: 339.3;
+  stroke-dashoffset: 339.3;
+  transition      : stroke-dashoffset 0.8s ease, stroke 0.5s ease;
+}
+
+.ring-number {
+  position  : absolute;
+  top       : 50%;
+  left      : 50%;
+  transform : translate(-50%, -50%);
+  font-family: var(--font-mono);
+  font-size : 1.8rem;
+  font-weight: 700;
+  color     : var(--text-primary);
+}
+
+.ring-label {
+  font-size : 0.82rem;
+  color     : var(--text-muted);
+}
+
+/* ── Emotion History ───────────────────────────────── */
+.emotion-history-card {
+  background   : var(--bg-card);
+  border-radius: var(--radius-md);
+  border       : 1px solid var(--border-color);
+  box-shadow   : var(--shadow-sm);
+  overflow     : hidden;
+}
+
+.emotion-history-card h3 {
+  font-size  : 0.88rem;
+  font-weight: 700;
+  color      : var(--text-secondary);
+  padding    : 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+  background : var(--bg-secondary);
+}
+
+.emotion-bars {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap    : 10px;
+}
+
+.emotion-bar-row {
+  display    : flex;
+  align-items: center;
+  gap        : 8px;
+}
+
+.emotion-bar-label {
+  width    : 90px;
+  font-size: 0.8rem;
+  color    : var(--text-secondary);
+  display  : flex;
+  align-items: center;
+  gap      : 5px;
+  flex-shrink: 0;
+}
+
+.emotion-bar-bg {
+  flex         : 1;
+  height       : 8px;
+  background   : var(--bg-secondary);
+  border-radius: 10px;
+  overflow     : hidden;
+}
+
+.emotion-bar-fill {
+  height       : 100%;
+  border-radius: 10px;
+  transition   : width 0.5s ease;
+}
+
+.emotion-bar-pct {
+  font-family: var(--font-mono);
+  font-size  : 0.75rem;
+  color      : var(--text-muted);
+  width      : 34px;
+  text-align : right;
+}
+
+/* ── Alert Banner ──────────────────────────────────── */
+.alert-banner {
+  padding      : 14px 20px;
+  border-radius: var(--radius-md);
+  display      : none;
+  align-items  : center;
+  gap          : 10px;
+  font-size    : 0.9rem;
+  font-weight  : 500;
+  animation    : slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.alert-banner.visible { display: flex; }
+.alert-banner.warning { background: var(--card-amber); color: #7A5200; border: 1px solid var(--accent-amber); }
+.alert-banner.danger  { background: var(--card-coral);  color: #7A0000; border: 1px solid var(--accent-danger); }
+.alert-banner.success { background: var(--card-mint);   color: #1A5C2A; border: 1px solid var(--accent-success); }
+
+/* ── Session Stats ─────────────────────────────────── */
+.session-stats {
+  background   : var(--bg-card);
+  border-radius: var(--radius-md);
+  border       : 1px solid var(--border-color);
+  padding      : 16px;
+  display      : grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap          : 12px;
+  box-shadow   : var(--shadow-sm);
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-box-value {
+  font-family: var(--font-mono);
+  font-size  : 1.3rem;
+  font-weight: 700;
+  color      : var(--text-primary);
+}
+
+.stat-box-label {
+  font-size : 0.72rem;
+  color     : var(--text-muted);
+  margin-top: 3px;
+}
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 900px) {
+  .emotion-layout { grid-template-columns: 1fr; }
+} 

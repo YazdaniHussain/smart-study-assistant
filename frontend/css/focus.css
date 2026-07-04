@@ -1,0 +1,415 @@
+@import url('./variables.css');
+
+/* ── Focus Mode Page ───────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.focus-body {
+  width           : 100vw;
+  height          : 100vh;
+  background      : #0F0E17;
+  font-family     : var(--font-main);
+  display         : grid;
+  grid-template-rows: 60px 1fr;
+  overflow        : hidden;
+  position        : relative;
+}
+
+/* ── Glow Effects ──────────────────────────────────── */
+.focus-body::before {
+  content      : '';
+  position     : fixed;
+  width        : 500px;
+  height       : 500px;
+  border-radius: 50%;
+  background   : radial-gradient(circle, rgba(124,111,205,0.08) 0%, transparent 70%);
+  top          : -150px;
+  right        : -100px;
+  pointer-events: none;
+  animation    : breathe 6s ease-in-out infinite;
+}
+
+.focus-body::after {
+  content      : '';
+  position     : fixed;
+  width        : 350px;
+  height       : 350px;
+  border-radius: 50%;
+  background   : radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 70%);
+  bottom       : -100px;
+  left         : -80px;
+  pointer-events: none;
+  animation    : breathe 8s ease-in-out infinite reverse;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1);    opacity: 0.6; }
+  50%       { transform: scale(1.2); opacity: 1; }
+}
+
+/* ── Top Bar ───────────────────────────────────────── */
+.focus-topbar {
+  display        : flex;
+  align-items    : center;
+  justify-content: space-between;
+  padding        : 0 32px;
+  background     : rgba(15,14,23,0.9);
+  backdrop-filter: blur(10px);
+  border-bottom  : 1px solid rgba(255,255,255,0.05);
+  z-index        : 10;
+  position       : relative;
+}
+
+.focus-logo {
+  font-size  : 0.88rem;
+  font-weight: 600;
+  color      : rgba(255,255,255,0.4);
+  display    : flex;
+  align-items: center;
+  gap        : 8px;
+}
+
+.focus-topbar-right {
+  display    : flex;
+  align-items: center;
+  gap        : 16px;
+}
+
+.focus-clock-small {
+  font-family   : var(--font-mono);
+  font-size     : 0.85rem;
+  color         : rgba(255,255,255,0.3);
+  letter-spacing: 2px;
+}
+
+.focus-exit-btn {
+  padding      : 6px 16px;
+  border-radius: var(--radius-sm);
+  border       : 1px solid rgba(255,255,255,0.12);
+  background   : transparent;
+  color        : rgba(255,255,255,0.4);
+  font-family  : var(--font-main);
+  font-size    : 0.8rem;
+  cursor       : pointer;
+  transition   : var(--transition);
+}
+
+.focus-exit-btn:hover {
+  background  : rgba(255,255,255,0.08);
+  color       : white;
+  border-color: rgba(255,255,255,0.25);
+}
+
+/* ── Main Area ─────────────────────────────────────── */
+.focus-main {
+  display        : grid;
+  grid-template-columns: 1fr 320px;
+  height         : 100%;
+  overflow       : hidden;
+  position       : relative;
+  z-index        : 1;
+}
+
+/* ── Center Panel ──────────────────────────────────── */
+.focus-center {
+  display        : flex;
+  flex-direction : column;
+  align-items    : center;
+  justify-content: center;
+  padding        : 20px;
+}
+
+.focus-message {
+  font-size     : 0.72rem;
+  color         : rgba(255,255,255,0.2);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom : 24px;
+}
+
+/* ── Timer Ring ────────────────────────────────────── */
+.focus-timer-wrap {
+  position     : relative;
+  width        : 260px;
+  height       : 260px;
+  margin-bottom: 28px;
+}
+
+.focus-timer-svg {
+  width    : 260px;
+  height   : 260px;
+  transform: rotate(-90deg);
+}
+
+.focus-timer-track {
+  fill        : none;
+  stroke      : rgba(255,255,255,0.04);
+  stroke-width: 6;
+}
+
+.focus-timer-ring {
+  fill            : none;
+  stroke          : #9D8FE8;
+  stroke-width    : 6;
+  stroke-linecap  : round;
+  stroke-dasharray: 713;
+  stroke-dashoffset: 0;
+  transition      : stroke-dashoffset 1s linear;
+  filter          : drop-shadow(0 0 10px rgba(157,143,232,0.7));
+}
+
+.focus-timer-inner {
+  position : absolute;
+  top      : 50%;
+  left     : 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.focus-time {
+  font-family   : var(--font-mono);
+  font-size     : 3.4rem;
+  font-weight   : 600;
+  color         : white;
+  letter-spacing: 3px;
+  line-height   : 1;
+  text-shadow   : 0 0 30px rgba(157,143,232,0.5);
+}
+
+.focus-mode-label {
+  font-size    : 0.7rem;
+  color        : rgba(255,255,255,0.25);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top   : 8px;
+}
+
+/* ── Controls ──────────────────────────────────────── */
+.focus-controls {
+  display    : flex;
+  align-items: center;
+  gap        : 16px;
+  margin-bottom: 24px;
+}
+
+.focus-ctrl-btn {
+  width          : 48px;
+  height         : 48px;
+  border-radius  : 50%;
+  border         : 1px solid rgba(255,255,255,0.08);
+  background     : rgba(255,255,255,0.04);
+  color          : rgba(255,255,255,0.6);
+  font-size      : 1.1rem;
+  cursor         : pointer;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  transition     : var(--transition);
+}
+
+.focus-ctrl-btn:hover {
+  background  : rgba(255,255,255,0.1);
+  color       : white;
+  transform   : translateY(-2px);
+}
+
+.focus-ctrl-primary {
+  width     : 64px;
+  height    : 64px;
+  background: #9D8FE8;
+  border    : none;
+  color     : white;
+  font-size : 1.6rem;
+  box-shadow: 0 4px 24px rgba(157,143,232,0.4);
+}
+
+.focus-ctrl-primary:hover {
+  background: #B0A3EC;
+  box-shadow: 0 6px 32px rgba(157,143,232,0.5);
+}
+
+/* ── Current Task ──────────────────────────────────── */
+.focus-task {
+  background   : rgba(255,255,255,0.03);
+  border       : 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-md);
+  padding      : 14px 24px;
+  text-align   : center;
+  max-width    : 380px;
+  width        : 100%;
+}
+
+.focus-task-label {
+  font-size    : 0.65rem;
+  color        : rgba(255,255,255,0.2);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.focus-task-text {
+  font-size: 0.9rem;
+  color    : rgba(255,255,255,0.6);
+}
+
+/* ── Right Panel ───────────────────────────────────── */
+.focus-right {
+  display        : flex;
+  flex-direction : column;
+  justify-content: center;
+  padding        : 32px 24px;
+  border-left    : 1px solid rgba(255,255,255,0.04);
+  gap            : 28px;
+}
+
+/* ── Sounds ────────────────────────────────────────── */
+.focus-section-label {
+  font-size    : 0.65rem;
+  color        : rgba(255,255,255,0.2);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.sounds-grid {
+  display              : grid;
+  grid-template-columns: 1fr 1fr;
+  gap                  : 8px;
+}
+
+.sound-btn {
+  padding      : 12px 8px;
+  border-radius: var(--radius-sm);
+  border       : 1px solid rgba(255,255,255,0.07);
+  background   : rgba(255,255,255,0.03);
+  color        : rgba(255,255,255,0.4);
+  font-family  : var(--font-main);
+  font-size    : 0.82rem;
+  cursor       : pointer;
+  transition   : var(--transition);
+  text-align   : center;
+}
+
+.sound-btn:hover {
+  background  : rgba(255,255,255,0.08);
+  color       : white;
+  border-color: rgba(255,255,255,0.15);
+}
+
+.sound-btn.active {
+  background  : rgba(157,143,232,0.2);
+  border-color: rgba(157,143,232,0.4);
+  color       : #B8ADEF;
+}
+
+/* ── Quote ─────────────────────────────────────────── */
+.focus-quote {
+  font-family: var(--font-retro);
+  font-size  : 0.68rem;
+  color      : rgba(255,255,255,0.15);
+  line-height: 1.8;
+}
+
+/* ── Stats ─────────────────────────────────────────── */
+.focus-stats {
+  display              : grid;
+  grid-template-columns: 1fr 1fr;
+  gap                  : 10px;
+}
+
+.focus-stat {
+  background   : rgba(255,255,255,0.03);
+  border       : 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+  padding      : 12px;
+  text-align   : center;
+}
+
+.focus-stat-val {
+  font-family: var(--font-mono);
+  font-size  : 1.2rem;
+  font-weight: 600;
+  color      : white;
+}
+
+.focus-stat-label {
+  font-size : 0.68rem;
+  color     : rgba(255,255,255,0.2);
+  margin-top: 3px;
+}
+
+/* ── Pomodoro Mode Selector ────────────────────────── */
+.focus-modes {
+  display: flex;
+  gap    : 6px;
+}
+
+.focus-mode-btn {
+  flex         : 1;
+  padding      : 8px 4px;
+  border-radius: var(--radius-sm);
+  border       : 1px solid rgba(255,255,255,0.07);
+  background   : transparent;
+  color        : rgba(255,255,255,0.3);
+  font-family  : var(--font-main);
+  font-size    : 0.72rem;
+  cursor       : pointer;
+  transition   : var(--transition);
+  text-align   : center;
+}
+
+.focus-mode-btn.active {
+  background  : rgba(157,143,232,0.2);
+  border-color: rgba(157,143,232,0.4);
+  color       : #B8ADEF;
+}
+
+/* ── Session Complete ──────────────────────────────── */
+.session-complete {
+  position       : fixed;
+  inset          : 0;
+  background     : rgba(15,14,23,0.96);
+  display        : none;
+  flex-direction : column;
+  align-items    : center;
+  justify-content: center;
+  z-index        : 200;
+}
+
+.session-complete.show { display: flex; }
+
+.complete-icon  { font-size: 3.5rem; margin-bottom: 16px; }
+
+.complete-title {
+  font-size    : 1.8rem;
+  font-weight  : 700;
+  color        : white;
+  margin-bottom: 8px;
+}
+
+.complete-sub {
+  font-size    : 0.88rem;
+  color        : rgba(255,255,255,0.35);
+  margin-bottom: 28px;
+}
+
+.complete-btn {
+  padding      : 11px 28px;
+  border-radius: var(--radius-md);
+  border       : none;
+  background   : #9D8FE8;
+  color        : white;
+  font-family  : var(--font-main);
+  font-size    : 0.95rem;
+  font-weight  : 600;
+  cursor       : pointer;
+  transition   : var(--transition);
+  margin       : 5px;
+}
+
+.complete-btn.ghost {
+  background  : transparent;
+  border      : 1px solid rgba(255,255,255,0.15);
+  color       : rgba(255,255,255,0.5);
+}
+
+.complete-btn:hover { opacity: 0.9; transform: translateY(-1px); }

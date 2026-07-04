@@ -1,6 +1,6 @@
 // ── Auth Guard ────────────────────────────────────────
 const user = JSON.parse(localStorage.getItem('user') || '{}');
-if (!localStorage.getItem('token')) window.location.href = './index.html';
+if (!localStorage.getItem('token')) window.location.href = '.pages/index.html';
 
 document.getElementById('navUsername').textContent = user.username || 'Student';
 document.getElementById('navAvatar').textContent   = (user.username || 'S')[0].toUpperCase();
@@ -148,6 +148,10 @@ startBtn.addEventListener('click', () => {
 
 // ── Handle Session End ────────────────────────────────
 function handleSessionEnd() {
+    // Notify user
+  if (typeof studyNotifs !== 'undefined') {
+    studyNotifs.timerComplete(isBreak ? 'break' : 'focus');
+  }
   const cfg = MODES[currentMode];
 
   if (!isBreak && cfg.break > 0) {

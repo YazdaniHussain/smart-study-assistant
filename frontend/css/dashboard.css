@@ -135,6 +135,9 @@
 .action-btn:nth-child(6) { border-color: var(--accent-peach);  background: var(--card-peach); }
 .action-btn:nth-child(7) { border-color: var(--accent-coral);  background: var(--card-coral); }
 .action-btn:nth-child(8) { border-color: var(--accent-primary);background: var(--card-lavender); }
+.action-btn:nth-child(7) { border-color: var(--accent-coral);  background: var(--card-coral); }
+.action-btn:nth-child(8) { border-color: var(--accent-primary); background: var(--card-lavender); }
+.action-btn:nth-child(9) { border-color: var(--accent-sky);    background: var(--card-sky); }
 
 /* ── Colorful Timer Modes ──────────────────────────── */
 .mode-btn:nth-child(1).active { background: var(--accent-primary); }

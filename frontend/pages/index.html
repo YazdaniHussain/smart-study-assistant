@@ -1,74 +1,123 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StudyMind — Smart Study Assistant</title>
-  <link rel="stylesheet" href="../css/main.css" />
-  <link rel="stylesheet" href="../css/auth.css" />
+  <link rel="stylesheet" href="../css/mobile.css"/>
+  <script src="../js/config.js"></script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#7C6FCD"/>
+<link rel="apple-touch-icon" href="/assets/icons/icon-192.jpg"/>
+
+  <title>StudyMind — AI-Powered Smart Study Assistant</title>
+  <link rel="stylesheet" href="../css/landing.css"/>
 </head>
-<body class="auth-page">
+<body class="landing-body">
 
-  <!-- Theme Toggle -->
-  <div class="auth-theme-toggle">
-    <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
+  <!-- Background Glows -->
+  <div class="bg-canvas">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
   </div>
 
-  <!-- Auth Card -->
-  <div class="auth-card">
-
-    <!-- Logo -->
-    <div class="auth-logo">
-      <div class="logo-icon">🎓</div>
-      <h1>StudyMind</h1>
-      <p>Your AI-powered study companion</p>
+  <!-- Navbar -->
+  <nav class="landing-nav">
+    <div class="nav-logo">
+      <div class="nav-logo-icon">🎓</div>
+      StudyMind
     </div>
-
-    <!-- Tabs -->
-    <div class="auth-tabs">
-      <button class="auth-tab active" id="loginTab">Login</button>
-      <button class="auth-tab" id="signupTab">Sign Up</button>
+    <div class="nav-right">
+      <button class="theme-toggle-btn" id="themeToggleBtn">☀️</button>
+      <button id="installAppBtn" class="nav-btn nav-btn-outline" style="display:none;">
+          📲 Install App
+      </button>
+      <a href="./login.html"  class="nav-btn nav-btn-outline">Login</a>
+      <a href="./signup.html" class="nav-btn nav-btn-fill">Sign Up Free</a>
     </div>
+  </nav>
 
-    <!-- Login Form -->
-    <div id="loginForm">
-      <div class="auth-form">
-        <div class="form-group">
-          <label class="form-label">Username</label>
-          <input type="text" id="loginUsername" class="input-field" placeholder="Enter your username" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" id="loginPassword" class="input-field" placeholder="Enter your password" />
-        </div>
-        <button class="auth-submit" id="loginBtn">Login →</button>
-        <div class="auth-message" id="loginMessage"></div>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">✨ AI-Powered Study Assistant</div>
+    <h1 class="hero-title">
+      Study Smarter,<br/>
+      <span class="grad">Not Harder</span>
+    </h1>
+    <p class="hero-sub">
+      All-in-one AI study companion with emotion tracking,
+      smart notes, voice control and real-time analytics.
+    </p>
+    <div class="cta-wrap">
+      <a href="./signup.html" class="cta-btn cta-primary">🚀 Get Started Free</a>
+      <a href="./login.html"  class="cta-btn cta-secondary">→ Already have an account</a>
+    </div>
+  </section>
+
+  <!-- Orbital System -->
+  <section class="orbital-section">
+    <div class="orbital-wrap" id="orbitalWrap">
+
+      <!-- Rings -->
+      <div class="orbit-ring orbit-ring-1"></div>
+      <div class="orbit-ring orbit-ring-2"></div>
+      <div class="orbit-ring orbit-ring-3"></div>
+
+      <!-- Center Core -->
+      <div class="orbital-core">
+        <div class="core-emoji" id="coreEmoji">🎓</div>
+        <div class="core-name"  id="coreName">StudyMind</div>
       </div>
+
+      <!-- Orbit Containers -->
+      <div class="orbit-container orbit-container-1" id="orbit1"></div>
+      <div class="orbit-container orbit-container-2" id="orbit2"></div>
+      <div class="orbit-container orbit-container-3" id="orbit3"></div>
     </div>
 
-    <!-- Signup Form -->
-    <div id="signupForm" style="display:none;">
-      <div class="auth-form">
-        <div class="form-group">
-          <label class="form-label">Username</label>
-          <input type="text" id="signupUsername" class="input-field" placeholder="Choose a username" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email</label>
-          <input type="email" id="signupEmail" class="input-field" placeholder="Enter your email" />
-        </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" id="signupPassword" class="input-field" placeholder="Create a password" />
-        </div>
-        <button class="auth-submit" id="signupBtn">Create Account →</button>
-        <div class="auth-message" id="signupMessage"></div>
-      </div>
+    <!-- Info Panel — shows on hover -->
+    <div class="orbital-info-panel" id="infoPanel">
+      <span class="info-panel-emoji" id="infoPanelEmoji">🎓</span>
+      <span class="info-panel-name"  id="infoPanelName"></span>
+      <span style="color:var(--text-3)">—</span>
+      <span class="info-panel-text"  id="infoPanelText">Hover a feature to learn more</span>
     </div>
+  </section>
 
-  </div>
+  <!-- Features Grid -->
+  <section class="features-section">
+    <div class="section-label">Everything You Need</div>
+    <div class="section-title">12 Powerful Features in One App</div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🔐</div><div class="feature-name">Secure Auth</div></div>
+      <div class="feature-card"><div class="feature-icon">⏱️</div><div class="feature-name">Smart Timer</div></div>
+      <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-name">Task Manager</div></div>
+      <div class="feature-card"><div class="feature-icon">📷</div><div class="feature-name">Emotion AI</div></div>
+      <div class="feature-card"><div class="feature-icon">📊</div><div class="feature-name">Analytics</div></div>
+      <div class="feature-card"><div class="feature-icon">🎯</div><div class="feature-name">Goal Tracker</div></div>
+      <div class="feature-card"><div class="feature-icon">🧾</div><div class="feature-name">AI Notes</div></div>
+      <div class="feature-card"><div class="feature-icon">🃏</div><div class="feature-name">Flashcards</div></div>
+      <div class="feature-card"><div class="feature-icon">🎤</div><div class="feature-name">Voice Control</div></div>
+      <div class="feature-card"><div class="feature-icon">🗓️</div><div class="feature-name">Calendar</div></div>
+    </div>
+  </section>
 
-  <script src="../js/theme.js"></script>
-  <script src="../js/auth.js"></script>
+  <!-- Quote -->
+  <section class="quote-section">
+    <div class="quote-box">
+      <div class="quote-text"   id="quoteText">Loading...</div>
+      <div class="quote-author" id="quoteAuthor"></div>
+      <div class="quote-dots"   id="quoteDots"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    © 2026 StudyMind — Built with ❤️ for students everywhere
+  </footer>
+
+  <script src="../js/landing.js"></script>
+  <script src="../js/pwa.js"></script>
 </body>
-</html> 
+</html>

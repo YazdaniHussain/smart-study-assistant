@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <link rel="stylesheet" href="../css/mobile.css"/>
+  <script src="../js/config.js"></script>
+  <link rel="stylesheet" href="../css/notifications.css"/>
+  <link rel="stylesheet" href="../css/voice.css"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#7C6FCD"/>
+<link rel="apple-touch-icon" href="/assets/icons/icon-192.jpg"/>
+
+  <title>StudyMind — Emotion Detection</title>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="../css/dashboard.css"/>
+  <link rel="stylesheet" href="../css/emotion.css"/>
+  <!-- face-api.js CDN -->
+  <script src="http://localhost:5000/faceapi/face-api.min.js"></script>
+</head>
+<body class="emotion-body">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo"><span>🎓</span> StudyMind</div>
+    <div class="nav-right">
+      <div class="theme-picker-wrap">
+        <button class="theme-picker-btn" id="themePickerBtn"></button>
+        <div class="theme-picker-panel" id="themePickerPanel">
+          <h4>Background Color</h4>
+          <div class="color-swatches">
+            <div class="color-swatch swatch-lavender" data-bg="lavender"></div>
+            <div class="color-swatch swatch-peach"    data-bg="peach"></div>
+            <div class="color-swatch swatch-mint"     data-bg="mint"></div>
+            <div class="color-swatch swatch-sky"      data-bg="sky"></div>
+            <div class="color-swatch swatch-rose"     data-bg="rose"></div>
+            <div class="color-swatch swatch-amber"    data-bg="amber"></div>
+            <div class="color-swatch swatch-sage"     data-bg="sage"></div>
+            <div class="color-swatch swatch-coral"    data-bg="coral"></div>
+          </div>
+        </div>
+      </div>
+      <a href="./dashboard.html" class="btn btn-ghost" style="font-size:0.85rem;">← Dashboard</a>
+      <button class="theme-toggle" id="themeToggle">🌙</button>
+      <div class="nav-user">
+        <div class="nav-avatar" id="navAvatar">S</div>
+        <span id="navUsername">Student</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="emotion-container">
+    <div class="page-header">
+      <h1>📷 Emotion & Focus Detection</h1>
+      <p>AI-powered real-time focus tracking using your webcam</p>
+    </div>
+
+    <!-- Alert Banner -->
+    <div class="alert-banner" id="alertBanner">
+      <span id="alertIcon">⚠️</span>
+      <span id="alertText">Alert message</span>
+    </div>
+
+    <div style="height:16px;"></div>
+
+    <div class="emotion-layout">
+
+      <!-- Left — Webcam -->
+      <div class="webcam-card">
+        <div class="webcam-header">
+          <div class="webcam-title">
+            <div class="status-dot" id="statusDot"></div>
+            <span id="statusText">Camera Off</span>
+          </div>
+          <div style="font-size:0.8rem;color:var(--text-muted);">
+            🔒 All processing is on-device
+          </div>
+        </div>
+
+        <div class="video-wrap">
+          <video id="webcamVideo" autoplay muted playsinline></video>
+          <canvas id="faceCanvas"></canvas>
+          <div class="video-overlay">
+            <div class="current-emotion">
+              <span class="emotion-emoji" id="emotionEmoji">😐</span>
+              <span id="emotionLabel">Waiting...</span>
+            </div>
+            <div class="focus-score-badge" id="focusScoreBadge">Focus: --%</div>
+          </div>
+        </div>
+
+        <div class="webcam-controls">
+          <button class="cam-btn cam-btn-start" id="startCamBtn">
+            📷 Start Detection
+          </button>
+          <button class="cam-btn cam-btn-stop" id="stopCamBtn">
+            ⏹ Stop Detection
+          </button>
+        </div>
+      </div>
+
+      <!-- Right — Stats -->
+      <div class="stats-panel">
+
+        <!-- Focus Score Ring -->
+        <div class="focus-ring-card">
+          <h3>Focus Score</h3>
+          <div class="ring-wrap">
+            <svg class="ring-svg" viewBox="0 0 120 120">
+              <circle class="ring-track" cx="60" cy="60" r="54"/>
+              <circle class="ring-fill" id="ringFill" cx="60" cy="60" r="54"/>
+            </svg>
+            <div class="ring-number" id="ringNumber">--</div>
+          </div>
+          <div class="ring-label" id="ringLabel">Start camera to track</div>
+        </div>
+
+        <!-- Session Stats -->
+        <div class="session-stats">
+          <div class="stat-box">
+            <div class="stat-box-value" id="statFocused">0m</div>
+            <div class="stat-box-label">Focused Time</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-value" id="statDistracted">0</div>
+            <div class="stat-box-label">Distractions</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-box-value" id="statSession">0m</div>
+            <div class="stat-box-label">Session Time</div>
+          </div>
+        </div>
+
+        <!-- Emotion History -->
+        <div class="emotion-history-card">
+          <h3>📊 Emotion Breakdown</h3>
+          <div class="emotion-bars" id="emotionBars">
+            <!-- Generated by JS -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/emotion.js"></script>
+  <script src="../js/voice.js"></script>
+  <script src="/socketio/socket.io.min.js"></script>
+<script src="../js/notifications.js"></script>
+<script src="../js/pwa.js"></script>
+</body>
+</html> 

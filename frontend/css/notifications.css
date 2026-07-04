@@ -1,0 +1,147 @@
+@import url('./variables.css');
+
+/* ── Notification Container ────────────────────────── */
+.notif-container {
+  position      : fixed;
+  top           : 80px;
+  right         : 20px;
+  z-index       : 99999;
+  display       : flex;
+  flex-direction: column;
+  gap           : 10px;
+  max-width     : 320px;
+  pointer-events: none;
+}
+
+/* ── Notification Card ─────────────────────────────── */
+.notif-card {
+  background    : var(--bg-card);
+  border        : 1px solid var(--border-color);
+  border-radius : var(--radius-md);
+  padding       : 14px 16px;
+  box-shadow    : var(--shadow-lg);
+  display       : flex;
+  align-items   : flex-start;
+  gap           : 12px;
+  pointer-events: all;
+  animation     : notifSlide 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position      : relative;
+  overflow      : hidden;
+}
+
+@keyframes notifSlide {
+  from { opacity: 0; transform: translateX(100%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.notif-card.removing {
+  animation: notifRemove 0.3s ease forwards;
+}
+
+@keyframes notifRemove {
+  to { opacity: 0; transform: translateX(110%); height: 0; padding: 0; margin: 0; }
+}
+
+/* ── Progress Bar ──────────────────────────────────── */
+.notif-progress {
+  position  : absolute;
+  bottom    : 0;
+  left      : 0;
+  height    : 3px;
+  background: var(--accent-primary);
+  transition: width linear;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+/* ── Types ─────────────────────────────────────────── */
+.notif-card.success { border-left: 4px solid var(--accent-success); }
+.notif-card.warning { border-left: 4px solid var(--accent-warning); }
+.notif-card.info    { border-left: 4px solid var(--accent-primary); }
+.notif-card.danger  { border-left: 4px solid var(--accent-danger);  }
+
+.notif-card.success .notif-progress { background: var(--accent-success); }
+.notif-card.warning .notif-progress { background: var(--accent-warning); }
+.notif-card.info    .notif-progress { background: var(--accent-primary); }
+.notif-card.danger  .notif-progress { background: var(--accent-danger);  }
+
+/* ── Icon ──────────────────────────────────────────── */
+.notif-icon {
+  font-size  : 1.4rem;
+  flex-shrink: 0;
+  margin-top : 1px;
+}
+
+/* ── Content ───────────────────────────────────────── */
+.notif-content { flex: 1; min-width: 0; }
+
+.notif-title {
+  font-size  : 0.88rem;
+  font-weight: 700;
+  color      : var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.notif-body {
+  font-size : 0.8rem;
+  color     : var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* ── Close Button ──────────────────────────────────── */
+.notif-close {
+  width          : 20px;
+  height         : 20px;
+  border-radius  : 50%;
+  border         : none;
+  background     : var(--bg-secondary);
+  color          : var(--text-muted);
+  font-size      : 0.75rem;
+  cursor         : pointer;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  flex-shrink    : 0;
+  transition     : var(--transition);
+}
+
+.notif-close:hover {
+  background: var(--accent-danger);
+  color     : white;
+}
+
+/* ── Bell Button in Navbar ─────────────────────────── */
+.notif-bell {
+  width          : 40px;
+  height         : 40px;
+  border-radius  : 50%;
+  border         : 1px solid var(--border-color);
+  background     : var(--bg-card);
+  cursor         : pointer;
+  display        : flex;
+  align-items    : center;
+  justify-content: center;
+  font-size      : 1rem;
+  transition     : var(--transition);
+  position       : relative;
+}
+
+.notif-bell:hover { background: var(--bg-secondary); }
+
+.notif-badge {
+  position     : absolute;
+  top          : -4px;
+  right        : -4px;
+  width        : 16px;
+  height       : 16px;
+  border-radius: 50%;
+  background   : var(--accent-danger);
+  color        : white;
+  font-size    : 0.6rem;
+  font-weight  : 700;
+  display      : flex;
+  align-items  : center;
+  justify-content: center;
+  display      : none;
+}
+
+.notif-badge.show { display: flex; } 

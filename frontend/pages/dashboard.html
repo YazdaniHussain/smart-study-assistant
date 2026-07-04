@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
+  <link rel="stylesheet" href="../css/mobile.css"/>
+  <script src="../js/config.js"></script>
+  <link rel="stylesheet" href="../css/notifications.css"/>
+  <link rel="stylesheet" href="../css/voice.css"/>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#7C6FCD"/>
+<link rel="apple-touch-icon" href="/assets/icons/icon-192.jpg"/>
+
   <title>StudyMind — Dashboard</title>
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="stylesheet" href="../css/dashboard.css" />
 </head>
+
 <body class="dashboard-body">
 
   <!-- Navbar -->
@@ -23,6 +33,10 @@
       </div>
     </div> -->
     <div class="nav-right">
+      <div class="notif-bell" id="notifBell" title="Notifications">
+  🔔
+  <div class="notif-badge" id="notifBadge">0</div>
+</div>
 
   <!-- Color Theme Picker -->
   <div class="theme-picker-wrap">
@@ -128,11 +142,38 @@
         <div class="action-icon">🌙</div>
         <div class="action-label">Focus Mode</div>
       </a>
+      <a class="action-btn" href="./emotion.html">
+        <div class="action-icon">📷</div>
+        <div class="action-label">Emotion Tracker</div>
+      </a>
     </div>
 
   </main>
 
   <script src="../js/theme.js"></script>
   <script src="../js/dashboard.js"></script>
+  <script src="../js/voice.js"></script>
+  <script src="/socketio/socket.io.min.js"></script>
+<script src="../js/notifications.js"></script>
+
+<!-- Mobile Bottom Navigation -->
+<nav class="mobile-bottom-nav" style="display:none;">
+  <a href="./dashboard.html" class="mobile-nav-item active">
+    <span class="mobile-nav-icon">🏠</span>Home
+  </a>
+  <a href="./timer.html" class="mobile-nav-item">
+    <span class="mobile-nav-icon">⏱️</span>Timer
+  </a>
+  <a href="./tasks.html" class="mobile-nav-item">
+    <span class="mobile-nav-icon">✅</span>Tasks
+  </a>
+  <a href="./notes.html" class="mobile-nav-item">
+    <span class="mobile-nav-icon">🧾</span>Notes
+  </a>
+  <a href="./goals.html" class="mobile-nav-item">
+    <span class="mobile-nav-icon">🎯</span>Goals
+  </a>
+</nav>
+<script src="../js/pwa.js"></script>
 </body>
 </html> 

@@ -1,7 +1,7 @@
 // ── Auth Guard ────────────────────────────────────────
 const token = localStorage.getItem('token');
 const user  = JSON.parse(localStorage.getItem('user') || '{}');
-if (!token) window.location.href = './index.html';
+if (!token) window.location.href = '.pages/index.html';
 
 document.getElementById('navUsername').textContent = user.username || 'Student';
 document.getElementById('navAvatar').textContent   = (user.username || 'S')[0].toUpperCase();
@@ -60,6 +60,7 @@ function openNote(id) {
   document.getElementById('noteContentInput').value      = activeNote.content || '';
   document.getElementById('aiPanel').classList.remove('visible');
   document.getElementById('autoSaveStatus').textContent  = '✏️ Editing';
+  document.getElementById('analyzeDocBtn').style.display = 'none';
 
   renderSidebar(document.getElementById('searchNotes').value);
 }
@@ -97,14 +98,16 @@ async function saveNote() {
       })
     });
 
-    const note    = notes.find(n => n.id === activeNote.id);
-    note.title    = title || 'Untitled';
-    note.content  = content;
-    activeNote    = note;
+    const note   = notes.find(n => n.id === activeNote.id);
+    note.title   = title || 'Untitled';
+    note.content = content;
+    activeNote   = note;
 
     document.getElementById('autoSaveStatus').textContent = '✅ Saved';
     renderSidebar();
-  } catch { document.getElementById('autoSaveStatus').textContent = '❌ Save failed'; }
+  } catch {
+    document.getElementById('autoSaveStatus').textContent = '❌ Save failed';
+  }
 }
 
 document.getElementById('saveNoteBtn').addEventListener('click', saveNote);
@@ -128,6 +131,7 @@ document.getElementById('deleteNoteBtn').addEventListener('click', async () => {
     activeNote = null;
     document.getElementById('editorEmpty').style.display   = 'block';
     document.getElementById('editorContent').style.display = 'none';
+    document.getElementById('analyzeDocBtn').style.display = 'none';
     renderSidebar();
   } catch { alert('Error deleting note'); }
 });
@@ -137,21 +141,88 @@ document.getElementById('searchNotes').addEventListener('input', e => {
   renderSidebar(e.target.value);
 });
 
-// ── AI via Gemini ─────────────────────────────────────
+// ── File Upload ───────────────────────────────────────
+document.getElementById('fileUploadInput').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const statusBar = document.getElementById('uploadStatus');
+  statusBar.style.display = 'flex';
+  statusBar.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="spinner"></div>
+      <span>Extracting text from <strong>${file.name}</strong>...</span>
+    </div>`;
+
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const res  = await fetch('http://localhost:5000/api/upload/extract', {
+      method : 'POST',
+      headers: { 'Authorization': `Bearer ${token}` },
+      body   : formData
+    });
+
+    const data = await res.json();
+
+    if (res.ok && data.text) {
+      const currentContent = document.getElementById('noteContentInput').value;
+      const separator      = currentContent
+        ? '\n\n--- Extracted from: ' + data.filename + ' ---\n\n'
+        : '';
+      document.getElementById('noteContentInput').value = currentContent + separator + data.text;
+
+      const currentTitle = document.getElementById('noteTitleInput').value.trim();
+      if (!currentTitle || currentTitle === 'New Note') {
+        document.getElementById('noteTitleInput').value =
+          file.name.replace(/\.[^/.]+$/, '');
+      }
+
+      // Show Analyze button
+      document.getElementById('analyzeDocBtn').style.display = 'flex';
+
+      statusBar.innerHTML = `
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span>✅ Extracted from</span>
+          <span class="upload-filename">${data.filename}</span>
+          <span class="upload-chars">${data.length.toLocaleString()} characters</span>
+        </div>
+        <button onclick="document.getElementById('uploadStatus').style.display='none'"
+                style="border:none;background:transparent;cursor:pointer;color:var(--text-muted);font-size:1.1rem;">
+          ×
+        </button>`;
+
+      document.getElementById('autoSaveStatus').textContent = '⏳ Saving...';
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(saveNote, 1500);
+
+    } else {
+      statusBar.innerHTML = `<span>❌ ${data.message || 'Extraction failed'}</span>`;
+    }
+
+  } catch (err) {
+    statusBar.innerHTML = `<span>❌ Upload failed. Is the server running?</span>`;
+  }
+
+  e.target.value = '';
+});
+
+
+// ── AI via Backend (secure) ───────────────────────────
 async function callAI(prompt) {
-  const apiKey = 'AIzaSyAwCj2zMLwyc3J57zpA6ICymXF1MmL48Uw';
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-  const res  = await fetch(url, {
+  const res = await fetch('http://localhost:5000/api/ai/generate', {
     method : 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body   : JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }]
-    })
+    headers: {
+      'Content-Type' : 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({ prompt })
   });
 
   const data = await res.json();
-  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-  return text || '';
+  if (!res.ok) throw new Error(data.message || 'AI request failed');
+  return data.text || '';
 }
 
 // ── Show AI Loading ───────────────────────────────────
@@ -164,6 +235,70 @@ function showAILoading() {
       AI is analyzing your notes...
     </div>`;
 }
+
+// ── Analyze Document (All AI at once) ────────────────
+document.getElementById('analyzeDocBtn').addEventListener('click', async () => {
+  const content = document.getElementById('noteContentInput').value.trim();
+  if (!content) return alert('No content to analyze!');
+
+  const panel = document.getElementById('aiPanel');
+  panel.classList.add('visible');
+  document.getElementById('aiResults').innerHTML = `
+    <div class="ai-loading">
+      <div class="spinner"></div>
+      Analyzing your document — this may take a few seconds...
+    </div>`;
+
+  try {
+    const [summary, keywords, flashcardsRaw] = await Promise.all([
+      callAI(`Summarize this document in 4-5 clear sentences. Focus on key points:\n\n${content.substring(0, 3000)}`),
+      callAI(`Extract 10 important keywords from this document. Return ONLY a comma-separated list:\n\n${content.substring(0, 3000)}`),
+      callAI(`Create 5 flashcards from this document. Format each exactly as:\nQ: [question]\nA: [answer]\n\nContent:\n${content.substring(0, 3000)}`),
+    ]);
+
+    const keywordList = keywords.split(',').map(k => k.trim()).filter(Boolean);
+    const cards       = flashcardsRaw.split('\n\n').filter(c => c.includes('Q:') && c.includes('A:'));
+
+    document.getElementById('aiResults').innerHTML = `
+      <div class="ai-result-section">
+        <h5>📝 Summary</h5>
+        <p>${summary}</p>
+      </div>
+      <div class="ai-result-section">
+        <h5>🔑 Keywords</h5>
+        <div class="keywords-wrap">
+          ${keywordList.map(k => `<span class="keyword-tag">${k}</span>`).join('')}
+        </div>
+      </div>
+      <div class="ai-result-section">
+        <h5>🃏 Flashcards</h5>
+        ${cards.map(card => {
+          const lines = card.split('\n');
+          const q = lines.find(l => l.startsWith('Q:'))?.replace('Q:', '').trim() || '';
+          const a = lines.find(l => l.startsWith('A:'))?.replace('A:', '').trim() || '';
+          return `
+            <div style="margin-bottom:10px;padding:10px;background:var(--bg-primary);
+                        border-radius:8px;border:1px solid var(--border-color);">
+              <div style="font-size:0.82rem;font-weight:600;color:var(--accent-amber);margin-bottom:4px;">Q: ${q}</div>
+              <div style="font-size:0.82rem;color:var(--text-primary);">A: ${a}</div>
+            </div>`;
+        }).join('')}
+      </div>`;
+
+    if (activeNote) {
+      activeNote.summary  = summary;
+      activeNote.keywords = keywords;
+      await saveNote();
+    }
+
+  } catch (err) {
+    document.getElementById('aiResults').innerHTML = `
+      <p style="color:var(--accent-danger)">
+        ❌ AI Error: ${err.message}<br>
+        <small>Check your Gemini API key and try again</small>
+      </p>`;
+  }
+});
 
 // ── AI Summary ────────────────────────────────────────
 document.getElementById('aiSummarizeBtn').addEventListener('click', async () => {
@@ -262,7 +397,8 @@ Keep questions clear and answers concise. Notes:\n\n${content}`
           const q = lines.find(l => l.startsWith('Q:'))?.replace('Q:', '').trim() || '';
           const a = lines.find(l => l.startsWith('A:'))?.replace('A:', '').trim() || '';
           return `
-            <div style="margin-bottom:10px;padding:10px;background:var(--bg-primary);border-radius:8px;border:1px solid var(--border-color);">
+            <div style="margin-bottom:10px;padding:10px;background:var(--bg-primary);
+                        border-radius:8px;border:1px solid var(--border-color);">
               <div style="font-size:0.82rem;font-weight:600;color:var(--accent-amber);margin-bottom:4px;">Q: ${q}</div>
               <div style="font-size:0.82rem;color:var(--text-primary);">A: ${a}</div>
             </div>`;
@@ -271,6 +407,59 @@ Keep questions clear and answers concise. Notes:\n\n${content}`
   } catch {
     document.getElementById('aiResults').innerHTML =
       '<p style="color:var(--accent-danger)">AI unavailable. Check your API key.</p>';
+  }
+});
+
+// ── Generate Flashcards from Note ────────────────────
+document.getElementById('genFlashcardsBtn').addEventListener('click', async () => {
+  const content = document.getElementById('noteContentInput').value.trim();
+  if (!content) return alert('Please write or upload some content first!');
+  if (content.length < 100) return alert('Please add more content for better flashcards!');
+
+  const btn = document.getElementById('genFlashcardsBtn');
+  btn.textContent = '⏳ Generating...';
+  btn.disabled    = true;
+
+  try {
+    // Generate flashcards via backend AI
+    const res  = await fetch('http://localhost:5000/api/ai/flashcards', {
+      method : 'POST',
+      headers: {
+        'Content-Type' : 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ content })
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message);
+
+    // Save flashcards to database
+    const saveRes = await fetch('http://localhost:5000/api/flashcards/bulk', {
+      method : 'POST',
+      headers: {
+        'Content-Type' : 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        flashcards: data.flashcards,
+        note_id   : activeNote?.id,
+        source    : 'ai',
+        deck_name : activeNote?.title || 'Untitled Note'
+      })
+    });
+
+    if (!saveRes.ok) throw new Error('Failed to save flashcards');
+
+    // Show success message
+    const count = data.flashcards.length;
+    alert(`✅ ${count} flashcards generated and saved!\n\nGo to Flashcards page to study them!`);
+
+  } catch (err) {
+    alert('❌ Error: ' + err.message);
+  } finally {
+    btn.textContent = '🃏 Generate Flashcards';
+    btn.disabled    = false;
   }
 });
 
