@@ -1,12 +1,12 @@
 // ── Auth Guard ────────────────────────────────────────
 const token = localStorage.getItem('token');
 const user  = JSON.parse(localStorage.getItem('user') || '{}');
-if (!token) window.location.href = '.pages/index.html';
+if (!token) window.location.href = '/pages/index.html';
 
 document.getElementById('navUsername').textContent = user.username || 'Student';
 document.getElementById('navAvatar').textContent   = (user.username || 'S')[0].toUpperCase();
 
-const API     = 'http://localhost:5000/api/notes';
+const API     = '/api/notes';
 const headers = {
   'Content-Type' : 'application/json',
   'Authorization': `Bearer ${token}`
@@ -158,7 +158,7 @@ document.getElementById('fileUploadInput').addEventListener('change', async (e) 
     const formData = new FormData();
     formData.append('file', file);
 
-    const res  = await fetch('http://localhost:5000/api/upload/extract', {
+    const res  = await fetch('/api/upload/extract', {
       method : 'POST',
       headers: { 'Authorization': `Bearer ${token}` },
       body   : formData
@@ -208,10 +208,9 @@ document.getElementById('fileUploadInput').addEventListener('change', async (e) 
   e.target.value = '';
 });
 
-
 // ── AI via Backend (secure) ───────────────────────────
 async function callAI(prompt) {
-  const res = await fetch('http://localhost:5000/api/ai/generate', {
+  const res = await fetch('/api/ai/generate', {
     method : 'POST',
     headers: {
       'Content-Type' : 'application/json',
@@ -236,6 +235,38 @@ function showAILoading() {
     </div>`;
 }
 
+// ── Format AI summary as bullet list ──────────────────
+function formatBulletSummary(text) {
+  const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+  const bulletLines = lines.filter(l => /^[-*•]\s+/.test(l));
+
+  if (bulletLines.length === 0) {
+    // AI didn't use bullets — just show as paragraph
+    return `<p>${text}</p>`;
+  }
+
+  const items = bulletLines
+    .map(l => l.replace(/^[-*•]\s+/, ''))
+    .map(l => `<li>${l}</li>`)
+    .join('');
+
+  return `<ul style="margin:0;padding-left:20px;line-height:1.7;">${items}</ul>`;
+}
+
+// ── Build a bullet-point summary prompt scaled to content ─
+function buildSummaryPrompt(content) {
+  const charCount = content.length;
+  const bulletCount =
+    charCount < 800   ? '4-6 bullet points' :
+    charCount < 2500  ? '7-10 bullet points' :
+    charCount < 6000  ? '10-15 bullet points, grouped by topic' :
+    '15-20 bullet points, grouped by topic with sub-bullets for detail';
+
+  return `Summarize these study notes as a clear bullet-point list (${bulletCount}). ` +
+    `Use "- " at the start of each point. Each bullet should cover one distinct idea, fact, or concept. ` +
+    `Scale the number of bullets to match the depth and length of the content — don't skip important details, but don't pad short content either:\n\n${content.substring(0, 6000)}`;
+}
+
 // ── Analyze Document (All AI at once) ────────────────
 document.getElementById('analyzeDocBtn').addEventListener('click', async () => {
   const content = document.getElementById('noteContentInput').value.trim();
@@ -251,7 +282,7 @@ document.getElementById('analyzeDocBtn').addEventListener('click', async () => {
 
   try {
     const [summary, keywords, flashcardsRaw] = await Promise.all([
-      callAI(`Summarize this document in 4-5 clear sentences. Focus on key points:\n\n${content.substring(0, 3000)}`),
+      callAI(buildSummaryPrompt(content)),
       callAI(`Extract 10 important keywords from this document. Return ONLY a comma-separated list:\n\n${content.substring(0, 3000)}`),
       callAI(`Create 5 flashcards from this document. Format each exactly as:\nQ: [question]\nA: [answer]\n\nContent:\n${content.substring(0, 3000)}`),
     ]);
@@ -262,7 +293,7 @@ document.getElementById('analyzeDocBtn').addEventListener('click', async () => {
     document.getElementById('aiResults').innerHTML = `
       <div class="ai-result-section">
         <h5>📝 Summary</h5>
-        <p>${summary}</p>
+        ${formatBulletSummary(summary)}
       </div>
       <div class="ai-result-section">
         <h5>🔑 Keywords</h5>
@@ -295,7 +326,7 @@ document.getElementById('analyzeDocBtn').addEventListener('click', async () => {
     document.getElementById('aiResults').innerHTML = `
       <p style="color:var(--accent-danger)">
         ❌ AI Error: ${err.message}<br>
-        <small>Check your Gemini API key and try again</small>
+        <small>Check your API key and try again</small>
       </p>`;
   }
 });
@@ -307,13 +338,12 @@ document.getElementById('aiSummarizeBtn').addEventListener('click', async () => 
   showAILoading();
 
   try {
-    const summary = await callAI(
-      `Summarize these study notes in 3-4 clear sentences. Be concise and focus on key points:\n\n${content}`
-    );
+    const summary = await callAI(buildSummaryPrompt(content));
+
     document.getElementById('aiResults').innerHTML = `
       <div class="ai-result-section">
         <h5>📝 Summary</h5>
-        <p>${summary}</p>
+        ${formatBulletSummary(summary)}
       </div>`;
 
     if (activeNote) {
@@ -329,9 +359,9 @@ document.getElementById('aiSummarizeBtn').addEventListener('click', async () => 
         })
       });
     }
-  } catch {
+  } catch (err) {
     document.getElementById('aiResults').innerHTML =
-      '<p style="color:var(--accent-danger)">AI unavailable. Check your API key.</p>';
+      `<p style="color:var(--accent-danger)">AI unavailable: ${err.message}</p>`;
   }
 });
 
@@ -367,9 +397,9 @@ document.getElementById('aiKeywordsBtn').addEventListener('click', async () => {
         })
       });
     }
-  } catch {
+  } catch (err) {
     document.getElementById('aiResults').innerHTML =
-      '<p style="color:var(--accent-danger)">AI unavailable. Check your API key.</p>';
+      `<p style="color:var(--accent-danger)">AI unavailable: ${err.message}</p>`;
   }
 });
 
@@ -404,25 +434,40 @@ Keep questions clear and answers concise. Notes:\n\n${content}`
             </div>`;
         }).join('')}
       </div>`;
-  } catch {
+  } catch (err) {
     document.getElementById('aiResults').innerHTML =
-      '<p style="color:var(--accent-danger)">AI unavailable. Check your API key.</p>';
+      `<p style="color:var(--accent-danger)">AI unavailable: ${err.message}</p>`;
   }
 });
 
 // ── Generate Flashcards from Note ────────────────────
 document.getElementById('genFlashcardsBtn').addEventListener('click', async () => {
-  const content = document.getElementById('noteContentInput').value.trim();
+  const content   = document.getElementById('noteContentInput').value.trim();
+  const noteTitle = document.getElementById('noteTitleInput').value.trim();
+
   if (!content) return alert('Please write or upload some content first!');
   if (content.length < 100) return alert('Please add more content for better flashcards!');
+
+  // ── Require a unique, proper title to avoid deck merging ──
+  if (!noteTitle || noteTitle === 'New Note' || noteTitle === 'Untitled') {
+    alert('⚠️ Please give this note a proper title first!\n\nThis title becomes your flashcard deck name — using the default name will merge it with other decks.');
+    document.getElementById('noteTitleInput').focus();
+    return;
+  }
 
   const btn = document.getElementById('genFlashcardsBtn');
   btn.textContent = '⏳ Generating...';
   btn.disabled    = true;
 
   try {
+    // Ensure the note title is saved before generating (in case autosave hasn't fired)
+    if (activeNote) {
+      activeNote.title = noteTitle;
+      await saveNote();
+    }
+
     // Generate flashcards via backend AI
-    const res  = await fetch('http://localhost:5000/api/ai/flashcards', {
+    const res  = await fetch('/api/ai/flashcards', {
       method : 'POST',
       headers: {
         'Content-Type' : 'application/json',
@@ -435,7 +480,7 @@ document.getElementById('genFlashcardsBtn').addEventListener('click', async () =
     if (!res.ok) throw new Error(data.message);
 
     // Save flashcards to database
-    const saveRes = await fetch('http://localhost:5000/api/flashcards/bulk', {
+    const saveRes = await fetch('/api/flashcards/bulk', {
       method : 'POST',
       headers: {
         'Content-Type' : 'application/json',

@@ -1,7 +1,7 @@
 const multer  = require('multer');
 const path    = require('path');
 const fs      = require('fs');
-const pdfParse = require('pdf-parse');
+const { PDFParse } = require('pdf-parse');
 const mammoth  = require('mammoth');
 
 // ── Storage Config ────────────────────────────────────
@@ -45,8 +45,10 @@ const extractText = async (req, res) => {
   try {
     if (ext === '.pdf') {
       const dataBuffer = fs.readFileSync(filePath);
-      const pdfData    = await pdfParse(dataBuffer);
-      extractedText    = pdfData.text;
+      const parser      = new PDFParse({ data: dataBuffer });
+      const result       = await parser.getText();
+      extractedText      = result.text;
+      await parser.destroy();
 
     } else if (ext === '.docx' || ext === '.doc') {
       const result  = await mammoth.extractRawText({ path: filePath });
@@ -73,6 +75,7 @@ const extractText = async (req, res) => {
     });
 
   } catch (error) {
+    console.error('❌ File extraction error:', error.message);
     // Clean up on error
     if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
     res.status(500).json({ message: 'Error extracting text: ' + error.message });
