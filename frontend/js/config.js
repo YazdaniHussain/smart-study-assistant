@@ -1,28 +1,61 @@
-// ── Smart Config — Works on PC, Mobile & Server ───────
-const _hostname = window.location.hostname || 'localhost';
-const _protocol = window.location.protocol || 'http:';
-const _port     = '5000';
+// ── Smart Config — Local + Render compatible ────────────
 
-// If served from port 5000 (our Express server), API is same origin
-// If served from elsewhere, point to port 5000
-const API_BASE = window.location.port === '5000'
-  ? `${_protocol}//${_hostname}:5000`
-  : `${_protocol}//${_hostname}:5000`;
+const hostname = window.location.hostname;
+const protocol = window.location.protocol;
 
-// ── Auto-fix ALL fetch URLs ───────────────────────────
-const _originalFetch = window.fetch;
-window.fetch = function(url, options) {
+// Local development:
+//   http://localhost:5500 → backend http://localhost:5000
+//   http://127.0.0.1:5500 → backend http://127.0.0.1:5000
+//
+// Production / Render:
+//   https://smart-study-assistant-0n49.onrender.com
+//   → API uses the same origin
+
+const isLocal =
+  hostname === 'localhost' ||
+  hostname === '127.0.0.1';
+
+const API_BASE = isLocal
+  ? `${protocol}//${hostname}:5000`
+  : '';
+
+// ── Automatically fix old localhost API URLs ────────────
+
+const originalFetch = window.fetch;
+
+window.fetch = function (url, options) {
+
   if (typeof url === 'string') {
-    // Fix localhost references
-    if (url.includes('localhost:5000')) {
-      url = url.replace('http://localhost:5000', API_BASE);
+
+    // Convert old localhost URLs when running locally
+    if (isLocal && url.includes('http://localhost:5000')) {
+      url = url.replace(
+        'http://localhost:5000',
+        API_BASE
+      );
     }
-    // Fix file:// references
+
+    // Convert old localhost URLs on Render
+    if (!isLocal && url.includes('http://localhost:5000')) {
+      url = url.replace(
+        'http://localhost:5000',
+        ''
+      );
+    }
+
+    // Convert file:// URLs during local development
     if (url.startsWith('file://')) {
-      url = url.replace('file://', `${_protocol}//`);
+      url = url.replace(
+        'file://',
+        `${protocol}//`
+      );
     }
   }
-  return _originalFetch.call(this, url, options);
+
+  return originalFetch.call(this, url, options);
 };
 
-console.log('✅ StudyMind API:', API_BASE);
+console.log(
+  '✅ StudyMind API:',
+  API_BASE || 'same-origin'
+);
