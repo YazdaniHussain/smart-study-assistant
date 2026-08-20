@@ -6,7 +6,8 @@ if (!token) window.location.href = '.pages/index.html';
 document.getElementById('navUsername').textContent = user.username || 'Student';
 document.getElementById('navAvatar').textContent   = (user.username || 'S')[0].toUpperCase();
 
-const API     = 'http://localhost:5000/api/flashcards';
+// const API     = 'http://localhost:5000/api/flashcards';
+const API     = '/api/flashcards';
 const headers = {
   'Content-Type' : 'application/json',
   'Authorization': `Bearer ${token}`
