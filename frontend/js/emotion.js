@@ -294,7 +294,7 @@ async function saveSession() {
       ((emotionCounts.neutral + emotionCounts.happy) / totalEmotions) * 100
     );
 
-    await fetch('http://localhost:5000/api/sessions', {
+    await fetch('/api/sessions', {
       method : 'POST',
       headers: {
         'Content-Type' : 'application/json',
