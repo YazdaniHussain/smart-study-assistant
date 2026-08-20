@@ -3,13 +3,13 @@ const router  = express.Router();
 const auth    = require('../middleware/authMiddleware');
 const https   = require('https');
 
-// ── Helper: call Groq API ─────────────────────────────
-function callGroq(prompt, apiKey) {
+// ── Helper: call Groq using built-in https ────────────
+function callGroq(prompt, apiKey, model) {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify({
-      model    : 'llama-3.3-70b-versatile',
-      messages : [{ role: 'user', content: prompt }],
-      max_tokens: 2000,
+      model      : model,
+      messages   : [{ role: 'user', content: prompt }],
+      max_tokens : 2000,
       temperature: 0.7
     });
 
@@ -44,19 +44,32 @@ function callGroq(prompt, apiKey) {
   });
 }
 
-// ── Generate Text ─────────────────────────────────────
+// ── Try multiple models in order (auto-fallback) ──────
+const MODELS = ['openai/gpt-oss-120b', 'openai/gpt-oss-20b', 'qwen/qwen3.6-27b'];
+
+async function callAIWithFallback(prompt, apiKey) {
+  let lastError = '';
+  for (const model of MODELS) {
+    try {
+      return await callGroq(prompt, apiKey, model);
+    } catch (err) {
+      lastError = err.message;
+      continue;
+    }
+  }
+  throw new Error(lastError || 'All AI models failed');
+}
+
+// ── Generate Text ──────────────────────────────────────
 router.post('/generate', auth, async (req, res) => {
   try {
     const { prompt } = req.body;
     if (!prompt) return res.status(400).json({ message: 'Prompt required' });
 
     const apiKey = process.env.GROQ_API_KEY;
-    if (!apiKey) return res.status(500).json({ message: 'GROQ_API_KEY not set in .env' });
+    if (!apiKey) return res.status(500).json({ message: 'GROQ_API_KEY not set in environment' });
 
-    console.log('Calling Groq AI...');
-    const result = await callGroq(prompt, apiKey);
-    console.log('✅ Groq response received!');
-
+    const result = await callAIWithFallback(prompt, apiKey);
     res.json({ text: result });
 
   } catch (err) {
@@ -65,14 +78,14 @@ router.post('/generate', auth, async (req, res) => {
   }
 });
 
-// ── Generate Flashcards ───────────────────────────────
+// ── Generate Flashcards ────────────────────────────────
 router.post('/flashcards', auth, async (req, res) => {
   try {
     const { content } = req.body;
     if (!content) return res.status(400).json({ message: 'Content required' });
 
     const apiKey = process.env.GROQ_API_KEY;
-    if (!apiKey) return res.status(500).json({ message: 'GROQ_API_KEY not set in .env' });
+    if (!apiKey) return res.status(500).json({ message: 'GROQ_API_KEY not set in environment' });
 
     const prompt = `Create 8 flashcards from this content.
 Return ONLY a valid JSON array. No extra text, no markdown backticks, just pure JSON:
@@ -84,11 +97,8 @@ Return ONLY a valid JSON array. No extra text, no markdown backticks, just pure 
 Content:
 ${content.substring(0, 4000)}`;
 
-    console.log('Generating flashcards with Groq...');
-    const result = await callGroq(prompt, apiKey);
-    console.log('✅ Flashcards generated!');
+    const result = await callAIWithFallback(prompt, apiKey);
 
-    // Parse JSON from response
     const jsonMatch = result.match(/\[[\s\S]*\]/);
     if (!jsonMatch) return res.status(500).json({ message: 'Could not parse flashcards' });
 
