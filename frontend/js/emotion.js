@@ -23,7 +23,8 @@ const stopBtn        = document.getElementById('stopCamBtn');
 
 // ── State ─────────────────────────────────────────────
 // const MODELS_URL      = 'https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/weights';
-const MODELS_URL      = 'http://localhost:5000/models';
+// const MODELS_URL      = 'http://localhost:5000/models';
+const MODELS_URL      = '/models';
 let   stream          = null;
 let   detectInterval  = null;
 let   sessionStart    = null;
